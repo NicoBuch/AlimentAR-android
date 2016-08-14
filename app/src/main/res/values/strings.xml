@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">AlimentAR</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCoGFOscoG_40AR5LIYhoCJxMCsYYh7R40</string>
+
+    <!-- Info window -->
+    <string name="see_details">Detalle</string>
+
+    <!-- Food Location Detail -->
+    <string name="see_directions">Como llegar</string>
+
+</resources>
