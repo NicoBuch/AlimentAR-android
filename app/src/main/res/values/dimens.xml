@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="standard_margin">16dp</dimen>
+    <dimen name="tabs_height">48dp</dimen>
 
 </resources>

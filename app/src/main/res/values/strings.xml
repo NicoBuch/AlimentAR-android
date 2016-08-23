@@ -10,4 +10,7 @@
     <!-- Food Location Detail -->
     <string name="see_directions">Como llegar</string>
 
+    <string name="givers">Donantes</string>
+    <string name="recipients">Comedores</string>
+
 </resources>

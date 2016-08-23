@@ -14,9 +14,14 @@ public class FoodLocationsRepository {
     public FoodLocationsRepository() {
     }
 
-    public void getFoodLocations(RepoCallback<List<FoodLocation>> repoCallback) {
+    public void getFoodGivers(RepoCallback<List<FoodLocation>> repoCallback) {
         List<FoodLocation> foodLocations = new LinkedList<>();
         foodLocations.addAll(getFoodProviders());
+        repoCallback.onSuccess(foodLocations);
+    }
+
+    public void getFoodReceivers(RepoCallback<List<FoodLocation>> repoCallback) {
+        List<FoodLocation> foodLocations = new LinkedList<>();
         foodLocations.addAll(getFoodConsumers());
         repoCallback.onSuccess(foodLocations);
     }
