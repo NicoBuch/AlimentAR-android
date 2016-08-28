@@ -1,5 +1,6 @@
 package com.android.proyectoalimentar.map;
 
+import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,7 +9,7 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import com.android.proyectoalimentar.AlimentARApp;
+import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.repository.FoodLocationsRepository;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -53,7 +56,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         setupTabs();
         setupLocationDetailsViewPager();
 
-        AlimentARApp.inject(this);
+        AlimentarApp.inject(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -133,6 +136,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         locationAdapter = new LocationAdapter(this);
         locationDetails.setAdapter(locationAdapter);
         new HeightModifierOnPageChangedListener(locationDetails, locationAdapter);
+        //locationDetails.addOnPageChangeListener(new O);
     }
 
     /**
@@ -176,6 +180,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         .title(foodProvider.getName())
                         .snippet(foodProvider.getDescription())
                         .icon(icon));
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }

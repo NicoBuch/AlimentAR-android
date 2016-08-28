@@ -12,5 +12,6 @@
 
     <string name="givers">Donantes</string>
     <string name="recipients">Comedores</string>
+    <string name="find_donation">Buscar donación</string>
 
 </resources>

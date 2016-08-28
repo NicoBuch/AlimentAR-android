@@ -53,12 +53,19 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.4.0'
 
     // Dagger 2
-    compile 'com.google.dagger:dagger:2.2'
-    apt 'com.google.dagger:dagger-compiler:2.2'
+    compile 'com.google.dagger:dagger:2.5'
+    apt 'com.google.dagger:dagger-compiler:2.5'
     provided 'javax.annotation:jsr250-api:1.0'
+
+    // Butterknife
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     // Functional streams
     compile 'com.annimon:stream:1.1.1'
+
+    // For custom fonts
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     testCompile 'junit:junit:4.12'
 }

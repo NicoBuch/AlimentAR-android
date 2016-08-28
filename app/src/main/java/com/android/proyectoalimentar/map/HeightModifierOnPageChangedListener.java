@@ -4,12 +4,12 @@ import android.content.res.Resources;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 
-import com.android.proyectoalimentar.AlimentARApp;
+import com.android.proyectoalimentar.AlimentarApp;
 
 public class HeightModifierOnPageChangedListener implements ViewPager.OnPageChangeListener {
 
-    private static final int MIN_HEIGHT = 100;
-    private static final int HEIGHT_DIFF = 60;
+    private static final int MIN_HEIGHT = 120;
+    private static final int HEIGHT_DIFF = 40;
     private final LocationAdapter locationAdapter;
 
     private int lastPosition;
@@ -64,7 +64,7 @@ public class HeightModifierOnPageChangedListener implements ViewPager.OnPageChan
     }
 
     private int convertDpToPixel(float dp) {
-        Resources resources = AlimentARApp.getContext().getResources();
+        Resources resources = AlimentarApp.getContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return (int) px;

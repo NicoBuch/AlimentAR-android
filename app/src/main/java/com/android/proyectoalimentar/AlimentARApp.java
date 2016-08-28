@@ -7,7 +7,9 @@ import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
 import com.android.proyectoalimentar.map.MainActivity;
 
-public class AlimentARApp extends Application {
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
+public class AlimentarApp extends Application {
 
     private static Context context;
 
@@ -15,6 +17,7 @@ public class AlimentARApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+        setupCalligraphy();
     }
 
     public static Context getContext() {
@@ -26,6 +29,14 @@ public class AlimentARApp extends Application {
                 .appModule(new AppModule(target))
                 .build()
                 .inject(target);
+    }
+
+    private void setupCalligraphy() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Medium.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
 }
