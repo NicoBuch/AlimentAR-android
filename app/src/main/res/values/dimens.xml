@@ -3,5 +3,7 @@
 
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="tabs_height">48dp</dimen>
+    <dimen name="toolbar_padding">0dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 
 </resources>

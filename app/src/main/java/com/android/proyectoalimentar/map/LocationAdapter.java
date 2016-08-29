@@ -86,4 +86,11 @@ public class LocationAdapter extends PagerAdapter {
         return 0;
     }
 
+    public FoodLocation getFoodLocationAt(int position) {
+        if (position < 0 || position >= foodLocations.size()) {
+            return null;
+        }
+        return foodLocations.get(position);
+    }
+
 }
