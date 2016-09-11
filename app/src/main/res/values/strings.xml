@@ -4,6 +4,9 @@
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCoGFOscoG_40AR5LIYhoCJxMCsYYh7R40</string>
 
+    <string name="facebook_app_id">863927230374800</string>
+    <string name="fb_login_protocol_scheme">fb863927230374800</string>
+
     <!-- Info window -->
     <string name="see_details">Detalle</string>
 
@@ -14,5 +17,7 @@
     <string name="recipients">Comedores</string>
     <string name="find_donation">Buscar donación</string>
     <string name="search">Buscar</string>
+
+    <string name="facebook_error">Error al iniciar sesión con Facebook</string>
 
 </resources>

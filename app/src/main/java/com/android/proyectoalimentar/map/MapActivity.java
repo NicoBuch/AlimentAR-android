@@ -39,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int TAB_GIVERS = 0;
     private static final int TAB_RECEIVERS = 1;
@@ -144,7 +144,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onError(String error) {
-                Toast.makeText(MainActivity.this, "Failed to load food providers",
+                Toast.makeText(MapActivity.this, "Failed to load food providers",
                         Toast.LENGTH_SHORT).show();
             }
         };

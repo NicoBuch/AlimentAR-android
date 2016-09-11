@@ -1,7 +1,8 @@
 package com.android.proyectoalimentar.di.component;
 
 import com.android.proyectoalimentar.di.module.AppModule;
-import com.android.proyectoalimentar.map.MainActivity;
+import com.android.proyectoalimentar.login.LoginActivity;
+import com.android.proyectoalimentar.map.MapActivity;
 
 import javax.inject.Singleton;
 
@@ -11,7 +12,9 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    void inject(MainActivity activity);
+    void inject(LoginActivity activity);
+
+    void inject(MapActivity activity);
 
 }
 

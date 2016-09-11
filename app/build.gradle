@@ -18,7 +18,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     signingConfigs {
-        debug {
+        stage {
             storeFile file('keystore/debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
@@ -32,12 +32,20 @@ android {
         }
     }
     buildTypes {
+        debug {
+            signingConfig null
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     productFlavors {
+        stage {
+            signingConfig signingConfigs.stage
+            applicationId defaultConfig.applicationId + ".dev"
+            versionName defaultConfig.versionName + "-dev"
+        }
         prod {
             signingConfig signingConfigs.prod
         }
@@ -61,11 +69,20 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
     // Functional streams
     compile 'com.annimon:stream:1.1.1'
 
     // For custom fonts
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+
+    // Facebook login
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
 
     testCompile 'junit:junit:4.12'
 }
