@@ -38,8 +38,7 @@ public class RetrofitServices {
                     Request request = chain.request();
                     if (StorageUtils.keyExists(Configuration.ACCESS_TOKEN)) {
                         request = chain.request().newBuilder()
-                            .addHeader(AUTHORIZATION, "token="
-                                    + StorageUtils.getStringFromSharedPreferences(
+                            .addHeader(AUTHORIZATION, StorageUtils.getStringFromSharedPreferences(
                                     Configuration.ACCESS_TOKEN, null))
                             .build();
                     }

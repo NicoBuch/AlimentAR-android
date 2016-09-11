@@ -18,6 +18,7 @@ import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.repository.FoodLocationsRepository;
 import com.android.proyectoalimentar.repository.MarkersRepository;
 import com.android.proyectoalimentar.repository.RepoCallback;
+import com.android.proyectoalimentar.utils.MapCalculator;
 import com.android.proyectoalimentar.utils.OnPageChangeListenerWrapper;
 import com.android.proyectoalimentar.utils.OnTabSelectedListenerWrapper;
 import com.annimon.stream.Stream;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.util.List;
 
@@ -111,13 +113,24 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private void populateFoodGivers() {
         if (clearMap()) {
-            foodLocationsRepository.getFoodGivers(createFoodRepoCallback());
+            VisibleRegion visibleRegion = map.getProjection().getVisibleRegion();
+            LatLng targetPosition = map.getCameraPosition().target;
+            foodLocationsRepository.getFoodGivers(
+                    targetPosition.latitude,
+                    targetPosition.longitude,
+                    MapCalculator.getVisibleRadius(map),
+                    createFoodRepoCallback());
         }
     }
 
     private void populateFoodReceivers() {
         if (clearMap()) {
-            foodLocationsRepository.getFoodReceivers(createFoodRepoCallback());
+            LatLng targetPosition = map.getCameraPosition().target;
+            foodLocationsRepository.getFoodReceivers(
+                    targetPosition.latitude,
+                    targetPosition.longitude,
+                    MapCalculator.getVisibleRadius(map),
+                    createFoodRepoCallback());
         }
     }
 
@@ -134,6 +147,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         return new RepoCallback<List<FoodLocation>>() {
             @Override
             public void onSuccess(List<FoodLocation> foodProviders) {
+                if (isFinishing()) {
+                    return;
+                }
                 Stream.of(foodProviders)
                         .map(foodLocation -> new Pair<>(addMarker(foodLocation), foodLocation))
                         .forEach(pair -> markersRepository.addMarker(pair.first, pair.second));
@@ -144,6 +160,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
             @Override
             public void onError(String error) {
+                if (isFinishing()) {
+                    return;
+                }
                 Toast.makeText(MapActivity.this, "Failed to load food providers",
                         Toast.LENGTH_SHORT).show();
             }
@@ -201,8 +220,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     R.drawable.marker_unselected));
         }
         selectedMarker = marker;
-        selectedMarker.setIcon(BitmapDescriptorFactory.fromResource(
-                R.drawable.marker_selected));
+        if (selectedMarker != null) {
+            selectedMarker.setIcon(BitmapDescriptorFactory.fromResource(
+                    R.drawable.marker_selected));
+        }
     }
 
     private Marker addMarker(FoodLocation foodProvider) {

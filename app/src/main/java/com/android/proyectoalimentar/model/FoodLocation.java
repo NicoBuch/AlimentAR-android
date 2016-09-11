@@ -6,22 +6,9 @@ public class FoodLocation {
 
     private String name;
     private String description;
-    private LatLng location;
+    private double lat;
+    private double lng;
     private String address;
-    private boolean isProvider;
-
-    public FoodLocation(
-            String name,
-            String description,
-            LatLng location,
-            String address,
-            boolean isProvider) {
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.address = address;
-        this.isProvider = isProvider;
-    }
 
     public String getName() {
         return name;
@@ -32,15 +19,11 @@ public class FoodLocation {
     }
 
     public LatLng getLocation() {
-        return location;
+        return new LatLng(lat, lng);
     }
 
     public String getAddress() {
         return address;
-    }
-
-    public boolean isProvider() {
-        return isProvider;
     }
 
     @Override
@@ -50,10 +33,10 @@ public class FoodLocation {
 
         FoodLocation that = (FoodLocation) o;
 
+        if (Double.compare(that.lat, lat) != 0) return false;
+        if (Double.compare(that.lng, lng) != 0) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null)
-            return false;
-        if (location != null ? !location.equals(that.location) : that.location != null)
             return false;
         return address != null ? address.equals(that.address) : that.address == null;
 
@@ -61,9 +44,14 @@ public class FoodLocation {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result;
+        long temp;
+        result = name != null ? name.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
+        temp = Double.doubleToLongBits(lat);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(lng);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
