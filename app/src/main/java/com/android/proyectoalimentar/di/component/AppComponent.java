@@ -1,6 +1,7 @@
 package com.android.proyectoalimentar.di.component;
 
 import com.android.proyectoalimentar.di.module.AppModule;
+import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 
@@ -15,6 +16,8 @@ public interface AppComponent {
     void inject(LoginActivity activity);
 
     void inject(MapFragment activity);
+
+    void inject(DonationsFragment activity);
 
 }
 

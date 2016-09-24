@@ -6,4 +6,6 @@
     <dimen name="toolbar_padding">0dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
 
+    <dimen name="timer_font">20sp</dimen>
+
 </resources>

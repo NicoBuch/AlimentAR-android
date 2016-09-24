@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 
 import com.android.proyectoalimentar.AlimentarApp;
+import com.android.proyectoalimentar.ui.view.FoodLocationView;
 
 public class HeightModifierOnPageChangedListener implements ViewPager.OnPageChangeListener {
 

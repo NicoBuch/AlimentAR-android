@@ -1,7 +1,8 @@
-package com.android.proyectoalimentar.ui.map;
+package com.android.proyectoalimentar.ui.view;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,37 @@ public class FoodLocationView extends FrameLayout {
     @BindView(R.id.address) TextView address;
     @BindView(R.id.opening_time) TextView openingTime;
     @BindView(R.id.description) TextView description;
+    @BindView(R.id.find_donation) View findDonation;
 
     public FoodLocationView(Context context, FoodLocation foodLocation) {
         super(context);
-        View view = inflate(context, R.layout.food_location_detail, this);
-        ButterKnife.bind(this, view);
+        init();
         setFoodLocation(foodLocation);
+    }
+
+    public FoodLocationView(Context context) {
+        super(context);
+        init();
+    }
+
+    public FoodLocationView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public FoodLocationView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    public FoodLocationView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init() {
+        View view = inflate(getContext(), R.layout.food_location_detail, this);
+        ButterKnife.bind(this, view);
     }
 
     public void setFoodLocation(FoodLocation foodLocation) {
@@ -60,6 +86,10 @@ public class FoodLocationView extends FrameLayout {
     @OnClick(R.id.find_donation)
     void onFindDonationClicked() {
         // TODO
+    }
+
+    public void hideDonationButton() {
+        findDonation.setVisibility(GONE);
     }
 
 }

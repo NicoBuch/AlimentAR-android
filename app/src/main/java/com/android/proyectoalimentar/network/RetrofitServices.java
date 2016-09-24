@@ -1,10 +1,13 @@
 package com.android.proyectoalimentar.network;
 
 import com.android.proyectoalimentar.Configuration;
+import com.android.proyectoalimentar.network.serializers.DateTimeTypeAdapter;
 import com.android.proyectoalimentar.utils.StorageUtils;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.joda.time.DateTime;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +51,7 @@ public class RetrofitServices {
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
                 .create();
 
         sRetrofit = new Retrofit.Builder()

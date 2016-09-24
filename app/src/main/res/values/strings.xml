@@ -24,5 +24,6 @@
     <string name="search">Buscar</string>
 
     <string name="facebook_error">Error al iniciar sesión con Facebook</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>

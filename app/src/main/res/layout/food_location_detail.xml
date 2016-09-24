@@ -84,6 +84,8 @@
                         android:layout_marginLeft="9dp"
                         android:textColor="@color/gray"
                         android:textSize="14sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         tools:text="Dirección"
                         />
 

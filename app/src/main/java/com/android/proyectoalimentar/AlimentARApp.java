@@ -5,9 +5,12 @@ import android.content.Context;
 
 import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
+import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.facebook.FacebookSdk;
+
+import net.danlew.android.joda.JodaTimeAndroid;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -20,6 +23,7 @@ public class AlimentarApp extends Application {
         super.onCreate();
         context = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
+        JodaTimeAndroid.init(this);
         setupCalligraphy();
     }
 
@@ -28,6 +32,13 @@ public class AlimentarApp extends Application {
     }
 
     public static void inject(MapFragment target) {
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(target.getActivity()))
+                .build()
+                .inject(target);
+    }
+
+    public static void inject(DonationsFragment target) {
         DaggerAppComponent.builder()
                 .appModule(new AppModule(target.getActivity()))
                 .build()

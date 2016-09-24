@@ -10,6 +10,12 @@ public class FoodLocation {
     private double lng;
     private String address;
 
+    public FoodLocation(String name, String description, String address) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+
     public String getName() {
         return name;
     }
@@ -54,6 +60,10 @@ public class FoodLocation {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
+    }
+
+    public static FoodLocation nullValue() {
+        return new FoodLocation("Nombre del lugar", "Descripcion", "Direccion 800");
     }
 
 }

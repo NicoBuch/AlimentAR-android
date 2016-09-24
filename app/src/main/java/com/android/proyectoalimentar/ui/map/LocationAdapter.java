@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.proyectoalimentar.model.FoodLocation;
+import com.android.proyectoalimentar.ui.view.FoodLocationView;
 
 import java.util.ArrayList;
 import java.util.List;
