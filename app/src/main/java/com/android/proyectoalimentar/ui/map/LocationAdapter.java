@@ -1,4 +1,4 @@
-package com.android.proyectoalimentar.map;
+package com.android.proyectoalimentar.ui.map;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

@@ -7,6 +7,11 @@
     <string name="facebook_app_id">863927230374800</string>
     <string name="fb_login_protocol_scheme">fb863927230374800</string>
 
+    <!-- Navigation drawer -->
+    <string name="map">Mapa</string>
+    <string name="donations">Donaciones</string>
+    <string name="terms_and_conditions">Términos y condiciones</string>
+
     <!-- Info window -->
     <string name="see_details">Detalle</string>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:background="@color/com_facebook_button_background_color_selected"
+        android:text="HEADER"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/nav_item_map"
+        style="@style/NavDrawerElement"
+        android:text="@string/map"
+        />
+
+    <TextView
+        android:id="@+id/nav_item_donations"
+        style="@style/NavDrawerElement"
+        android:text="@string/donations"
+        />
+
+    <TextView
+        android:id="@+id/nav_item_terms"
+        style="@style/NavDrawerElement"
+        android:text="@string/terms_and_conditions"
+        />
+
+</LinearLayout>

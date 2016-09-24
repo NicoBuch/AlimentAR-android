@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
-import com.android.proyectoalimentar.login.LoginActivity;
-import com.android.proyectoalimentar.map.MapActivity;
+import com.android.proyectoalimentar.ui.login.LoginActivity;
+import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.facebook.FacebookSdk;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -27,9 +27,9 @@ public class AlimentarApp extends Application {
         return context;
     }
 
-    public static void inject(MapActivity target) {
+    public static void inject(MapFragment target) {
         DaggerAppComponent.builder()
-                .appModule(new AppModule(target))
+                .appModule(new AppModule(target.getActivity()))
                 .build()
                 .inject(target);
     }

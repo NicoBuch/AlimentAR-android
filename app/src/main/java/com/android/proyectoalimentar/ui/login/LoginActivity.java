@@ -1,4 +1,4 @@
-package com.android.proyectoalimentar.login;
+package com.android.proyectoalimentar.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.widget.Toast;
 
 import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
-import com.android.proyectoalimentar.map.MapActivity;
 import com.android.proyectoalimentar.model.AuthenticatedUser;
 import com.android.proyectoalimentar.network.LoginService;
 import com.android.proyectoalimentar.network.RetrofitServices;
+import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.utils.UserStorage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
 
         AlimentarApp.inject(this);
         if (userStorage.isUserLogged()) {
-            startActivity(new Intent(this, MapActivity.class));
+            startActivity(new Intent(this, DrawerActivity.class));
             finish();
             return;
         }
@@ -84,7 +84,7 @@ public class LoginActivity extends Activity {
                                            Response<AuthenticatedUser> response) {
                         if (response.isSuccessful()) {
                             userStorage.login(response.body());
-                            startActivity(new Intent(LoginActivity.this, MapActivity.class));
+                            startActivity(new Intent(LoginActivity.this, DrawerActivity.class));
                             finish();
                         } else {
                             showFbLoginError();

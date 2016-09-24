@@ -4,6 +4,7 @@ import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.network.DonationsService;
 import com.android.proyectoalimentar.network.RetrofitServices;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +19,9 @@ public class FoodLocationsRepository {
 
     private final DonationsService donationsService;
 
+    private List<FoodLocation> givers = new LinkedList<>();
+    private List<FoodLocation> receivers = new LinkedList<>();
+
     @Inject
     public FoodLocationsRepository() {
         donationsService = RetrofitServices.getService(DonationsService.class);
@@ -25,24 +29,34 @@ public class FoodLocationsRepository {
 
     public void getFoodGivers(double lat, double lng, double radius,
                               RepoCallback<List<FoodLocation>> repoCallback) {
+        if (!givers.isEmpty()) {
+            repoCallback.onSuccess(givers);
+            return;
+        }
         donationsService.fetchDonators(lat, lng, radius)
-                .enqueue(createSimpleCallback(repoCallback));
+                .enqueue(createSimpleCallback(repoCallback, givers));
     }
 
     public void getFoodReceivers(double lat, double lng, double radius,
                                  RepoCallback<List<FoodLocation>> repoCallback) {
+        if (!receivers.isEmpty()) {
+            repoCallback.onSuccess(receivers);
+            return;
+        }
         donationsService.fetchCenters(lat, lng, radius)
-                .enqueue(createSimpleCallback(repoCallback));
+                .enqueue(createSimpleCallback(repoCallback, receivers));
     }
 
     private Callback<List<FoodLocation>> createSimpleCallback(
-            final RepoCallback<List<FoodLocation>> repoCallback) {
+            final RepoCallback<List<FoodLocation>> repoCallback, final List<FoodLocation> list) {
         return new Callback<List<FoodLocation>>() {
             @Override
             public void onResponse(Call<List<FoodLocation>> call,
                                    Response<List<FoodLocation>> response) {
                 if (response.isSuccessful()) {
-                    repoCallback.onSuccess(response.body());
+                    list.clear();
+                    list.addAll(response.body());
+                    repoCallback.onSuccess(list);
                 } else {
                     repoCallback.onError(response.message());
                 }
