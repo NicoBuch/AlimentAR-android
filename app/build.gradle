@@ -83,7 +83,7 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     // Facebook login
-    compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     // For time and date management
     compile 'net.danlew:android.joda:2.8.1'

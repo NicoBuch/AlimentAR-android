@@ -12,5 +12,6 @@
     <color name="white">#FBFBFB</color>
     <color name="gray">#9B9B9B</color>
     <color name="light_gray">#CACACA</color>
+    <color name="fb_blue">#0000FF</color>
 
 </resources>
