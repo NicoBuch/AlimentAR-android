@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -85,7 +84,7 @@ public class FoodLocationView extends FrameLayout {
     public void setFoodLocation(FoodLocation foodLocation) {
         // TODO: Update hardcoded texts.
         name.setText(foodLocation.getName());
-        distance.setText("0.8km");
+        distance.setText("");
         address.setText(foodLocation.getAddress());
         description.setText(foodLocation.getDescription());
     }
