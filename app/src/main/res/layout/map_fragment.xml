@@ -86,4 +86,11 @@
 
     </LinearLayout>
 
+    <com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView
+        android:id="@+id/confirm_donation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
 </FrameLayout>

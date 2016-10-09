@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.model.Donation;
-import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.ui.view.FoodLocationView;
 import com.android.proyectoalimentar.ui.view.TimerView;
 
@@ -64,7 +63,7 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
             this.donation = donation;
 
             foodLocationView.hideDonationButton();
-            foodLocationView.setFoodLocation(FoodLocation.nullValue());
+            foodLocationView.setDonation(donation);
 
             timer.setTimeLeft(donation.getTimeLeft());
         }

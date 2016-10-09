@@ -25,5 +25,9 @@
 
     <string name="facebook_error">Error al iniciar sesión con Facebook</string>
     <string name="cancel">Cancelar</string>
+    <string name="confirm_donation_time">60 min</string>
+    <string name="confirm_donation_explanation">Tenes 60 minutos para pasar a buscar la donacipn</string>
+    <string name="confirm_donation_cancel">Cancelar</string>
+    <string name="confirm_donation_accept">aceptar</string>
 
 </resources>

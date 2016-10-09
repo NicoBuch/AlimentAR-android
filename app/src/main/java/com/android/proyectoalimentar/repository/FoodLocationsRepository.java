@@ -1,5 +1,6 @@
 package com.android.proyectoalimentar.repository;
 
+import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.network.DonationsService;
 import com.android.proyectoalimentar.network.RetrofitServices;
@@ -19,8 +20,8 @@ public class FoodLocationsRepository {
 
     private final DonationsService donationsService;
 
-    private List<FoodLocation> givers = new LinkedList<>();
-    private List<FoodLocation> receivers = new LinkedList<>();
+    private List<Donation> givers = new LinkedList<>();
+    private List<Donation> receivers = new LinkedList<>();
 
     @Inject
     public FoodLocationsRepository() {
@@ -28,7 +29,7 @@ public class FoodLocationsRepository {
     }
 
     public void getFoodGivers(double lat, double lng, double radius,
-                              RepoCallback<List<FoodLocation>> repoCallback) {
+                              RepoCallback<List<Donation>> repoCallback) {
         if (!givers.isEmpty()) {
             repoCallback.onSuccess(givers);
             return;
@@ -38,21 +39,34 @@ public class FoodLocationsRepository {
     }
 
     public void getFoodReceivers(double lat, double lng, double radius,
-                                 RepoCallback<List<FoodLocation>> repoCallback) {
+                                 RepoCallback<List<Donation>> repoCallback) {
         if (!receivers.isEmpty()) {
             repoCallback.onSuccess(receivers);
             return;
         }
+        List<FoodLocation> foodLocations = new LinkedList<>();
         donationsService.fetchCenters(lat, lng, radius)
-                .enqueue(createSimpleCallback(repoCallback, receivers));
+                .enqueue(createSimpleCallback(new RepoCallback<List<FoodLocation>>() {
+                    @Override
+                    public void onSuccess(List<FoodLocation> foodLocations) {
+                        for (FoodLocation foodLocation : foodLocations) {
+                            receivers.add(new Donation(foodLocation));
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        repoCallback.onError(error);
+                    }
+                }, foodLocations));
     }
 
-    private Callback<List<FoodLocation>> createSimpleCallback(
-            final RepoCallback<List<FoodLocation>> repoCallback, final List<FoodLocation> list) {
-        return new Callback<List<FoodLocation>>() {
+    private <T> Callback<List<T>> createSimpleCallback(
+            final RepoCallback<List<T>> repoCallback, final List<T> list) {
+        return new Callback<List<T>>() {
             @Override
-            public void onResponse(Call<List<FoodLocation>> call,
-                                   Response<List<FoodLocation>> response) {
+            public void onResponse(Call<List<T>> call,
+                                   Response<List<T>> response) {
                 if (response.isSuccessful()) {
                     list.clear();
                     list.addAll(response.body());
@@ -63,7 +77,7 @@ public class FoodLocationsRepository {
             }
 
             @Override
-            public void onFailure(Call<List<FoodLocation>> call, Throwable t) {
+            public void onFailure(Call<List<T>> call, Throwable t) {
                 repoCallback.onError(t.getLocalizedMessage());
             }
         };

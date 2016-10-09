@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AA000000"
+    android:clickable="true"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:layout_gravity="center"
+        android:padding="12dp"
+        android:orientation="vertical"
+        android:background="@drawable/confirm_donation_background"
+        >
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_time"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:text="@string/confirm_donation_time"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="true"
+            fontPath="fonts/Roboto-Bold.ttf"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/confirm_donation_explanation"
+            android:textSize="16sp"
+            android:textColor="@color/gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/cancel_donation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="16dp"
+                android:padding="8dp"
+                android:text="@string/confirm_donation_cancel"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:textAllCaps="true"
+                fontPath="fonts/Roboto-Bold.ttf"
+                />
+
+            <TextView
+                android:id="@+id/accept_donation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="@string/confirm_donation_accept"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                fontPath="fonts/Roboto-Bold.ttf"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

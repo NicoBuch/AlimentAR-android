@@ -9,16 +9,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
+import com.android.proyectoalimentar.di.component.DaggerAppComponent;
+import com.android.proyectoalimentar.di.module.AppModule;
+import com.android.proyectoalimentar.di.module.NetworkModule;
 import com.android.proyectoalimentar.model.Donation;
+import com.android.proyectoalimentar.repository.DonationsRepository;
+import com.android.proyectoalimentar.repository.RepoCallback;
 import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 
-import org.joda.time.DateTime;
-
-import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +32,8 @@ public class DonationsFragment extends Fragment {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.donations_list) RecyclerView donationsList;
 
+    @Inject DonationsRepository donationsRepository;
+
     private DonationsAdapter donationsAdapter;
 
     @Nullable
@@ -36,11 +42,15 @@ public class DonationsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.donations_fragment, container, false);
         ButterKnife.bind(this, view);
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(getActivity()))
+                .networkModule(new NetworkModule())
+                .build()
+                .inject(this);
 
         setupDrawer();
         setupDonationsList();
 
-        AlimentarApp.inject(this);
 
         return view;
     }
@@ -55,13 +65,18 @@ public class DonationsFragment extends Fragment {
         donationsList.setAdapter(donationsAdapter);
         donationsList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // TODO: Get this from API
-        List<Donation> donations = new LinkedList<>();
-        for (int i = 0; i < 20; i++) {
-            Donation donation = new Donation(DateTime.now().plusMinutes((int)(Math.random() * 60)));
-            donations.add(donation);
-        }
-        donationsAdapter.setDonations(donations);
+        donationsRepository.getDonationsList(new RepoCallback<List<Donation>>() {
+            @Override
+            public void onSuccess(List<Donation> donations) {
+                donationsAdapter.setDonations(donations);
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(getActivity(), "Hubo un error al cargar las donaciones activas",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

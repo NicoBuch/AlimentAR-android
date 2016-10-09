@@ -1,6 +1,6 @@
 package com.android.proyectoalimentar.repository;
 
-import com.android.proyectoalimentar.model.FoodLocation;
+import com.android.proyectoalimentar.model.Donation;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.HashMap;
@@ -12,8 +12,8 @@ import javax.inject.Singleton;
 @Singleton
 public class MarkersRepository {
 
-    private Map<Marker, FoodLocation> markerFoodLocations;
-    private Map<FoodLocation, Marker> foodLocationMarkers;
+    private Map<Marker, Donation> markerFoodLocations;
+    private Map<Donation, Marker> foodLocationMarkers;
 
     @Inject
     public MarkersRepository() {
@@ -21,17 +21,22 @@ public class MarkersRepository {
         foodLocationMarkers = new HashMap<>();
     }
 
-    public void addMarker(Marker marker, FoodLocation foodLocation) {
+    public void addMarker(Marker marker, Donation foodLocation) {
         markerFoodLocations.put(marker, foodLocation);
         foodLocationMarkers.put(foodLocation, marker);
     }
 
-    public FoodLocation getFoodLocation(Marker marker) {
+    public Donation getFoodLocation(Marker marker) {
         return markerFoodLocations.get(marker);
     }
 
-    public Marker getMarker(FoodLocation foodLocation) {
+    public Marker getMarker(Donation foodLocation) {
         return foodLocationMarkers.get(foodLocation);
+    }
+
+    public void clear() {
+        markerFoodLocations.clear();
+        foodLocationMarkers.clear();
     }
 
 }

@@ -16,11 +16,14 @@ import android.widget.Toast;
 
 import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
+import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.repository.FoodLocationsRepository;
 import com.android.proyectoalimentar.repository.MarkersRepository;
 import com.android.proyectoalimentar.repository.RepoCallback;
+import com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView;
 import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
+import com.android.proyectoalimentar.ui.drawer.DrawerItem;
 import com.android.proyectoalimentar.utils.MapCalculator;
 import com.android.proyectoalimentar.utils.OnPageChangeListenerWrapper;
 import com.android.proyectoalimentar.utils.OnTabSelectedListenerWrapper;
@@ -51,6 +54,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.location_details) ViewPager locationDetails;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.confirm_donation) ConfirmDonationView confirmDonationView;
 
     private GoogleMap map;
     private LocationAdapter locationAdapter;
@@ -71,6 +75,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         setupDrawer();
         setupTabs();
         setupLocationDetailsViewPager();
+        setupConfirmDonationView();
 
         AlimentarApp.inject(this);
 
@@ -99,7 +104,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         tabLayout.addOnTabSelectedListener(new OnTabSelectedListenerWrapper() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                markersRepository.clear();
                 populateMap();
+            }
+        });
+    }
+
+    private void setupConfirmDonationView() {
+        confirmDonationView.setDonationConfirmationListener(
+                new ConfirmDonationView.DonationConfirmationListener() {
+            @Override
+            public void onDonationConfirmed() {
+                ((DrawerActivity) getActivity()).openDrawerItem(DrawerItem.DONATIONS);
+                confirmDonationView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDonationCanceled() {
+                confirmDonationView.setVisibility(View.GONE);
             }
         });
     }
@@ -117,6 +139,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void populateFoodGivers() {
         if (clearMap()) {
+            locationAdapter.setDonationButtonAvailable(true);
             LatLng targetPosition = map.getCameraPosition().target;
             foodLocationsRepository.getFoodGivers(
                     targetPosition.latitude,
@@ -128,6 +151,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void populateFoodReceivers() {
         if (clearMap()) {
+            locationAdapter.setDonationButtonAvailable(false);
             LatLng targetPosition = map.getCameraPosition().target;
             foodLocationsRepository.getFoodReceivers(
                     targetPosition.latitude,
@@ -146,10 +170,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return true;
     }
 
-    private RepoCallback<List<FoodLocation>> createFoodRepoCallback() {
-        return new RepoCallback<List<FoodLocation>>() {
+    private RepoCallback<List<Donation>> createFoodRepoCallback() {
+        return new RepoCallback<List<Donation>>() {
             @Override
-            public void onSuccess(List<FoodLocation> foodProviders) {
+            public void onSuccess(List<Donation> foodProviders) {
                 if (getActivity() == null || getActivity().isFinishing()) {
                     return;
                 }
@@ -173,7 +197,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void setupLocationDetailsViewPager() {
-        locationAdapter = new LocationAdapter(getActivity());
+        locationAdapter = new LocationAdapter(getActivity(), foodLocation -> {
+            confirmDonationView.setFoodLocation(foodLocation);
+            confirmDonationView.setVisibility(View.VISIBLE);
+        });
         locationDetails.setAdapter(locationAdapter);
         new HeightModifierOnPageChangedListener(locationDetails, locationAdapter);
         locationDetails.addOnPageChangeListener(new OnPageChangeListenerWrapper() {
@@ -185,7 +212,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void selectFoodLocationAtPosition(int position) {
-        FoodLocation foodLocation = locationAdapter.getFoodLocationAt(position);
+        Donation foodLocation = locationAdapter.getFoodLocationAt(position);
         Marker marker = markersRepository.getMarker(foodLocation);
         selectMarker(marker);
     }
@@ -205,7 +232,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map.setOnMarkerClickListener(marker -> {
             selectMarker(marker);
 
-            FoodLocation foodLocation = markersRepository.getFoodLocation(selectedMarker);
+            Donation foodLocation = markersRepository.getFoodLocation(selectedMarker);
             int foodLocationPosition = locationAdapter.getLocationPosition(foodLocation);
             locationDetails.setCurrentItem(foodLocationPosition, true);
 
@@ -229,7 +256,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private Marker addMarker(FoodLocation foodProvider) {
+    private Marker addMarker(Donation donation) {
+        FoodLocation foodProvider = donation.getDonator();
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_unselected);
         return map.addMarker(
                 new MarkerOptions()

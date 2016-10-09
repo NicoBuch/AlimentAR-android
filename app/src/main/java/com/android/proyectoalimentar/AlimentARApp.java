@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
+import com.android.proyectoalimentar.di.module.NetworkModule;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
@@ -32,13 +33,6 @@ public class AlimentarApp extends Application {
     }
 
     public static void inject(MapFragment target) {
-        DaggerAppComponent.builder()
-                .appModule(new AppModule(target.getActivity()))
-                .build()
-                .inject(target);
-    }
-
-    public static void inject(DonationsFragment target) {
         DaggerAppComponent.builder()
                 .appModule(new AppModule(target.getActivity()))
                 .build()

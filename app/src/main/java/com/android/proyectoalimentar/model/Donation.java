@@ -7,17 +7,39 @@ public class Donation {
 
     String status;
     String description;
-    DateTime pickUpTimeFrom;
-    DateTime pickUpTimeTo;
+    DateTime pickupTimeFrom;
+    DateTime pickupTimeTo;
+    FoodLocation donator;
 
-    public Donation(DateTime pickUpTimeTo) {
-        pickUpTimeFrom = DateTime.now();
-        this.pickUpTimeTo = pickUpTimeTo;
+    public Donation(FoodLocation donator) {
+        this.donator = donator;
+    }
+
+    public Donation(DateTime pickupTimeTo) {
+        pickupTimeFrom = DateTime.now();
+        this.pickupTimeTo = pickupTimeTo;
+    }
+
+    public Donation(String description) {
+        this.description = description;
+        pickupTimeFrom = DateTime.now();
+        pickupTimeTo = pickupTimeFrom.plusHours(1);
+    }
+
+    public DateTime getPickupTimeFrom() {
+        return pickupTimeFrom;
+    }
+
+    public DateTime getPickupTimeTo() {
+        return pickupTimeTo;
     }
 
     public long getTimeLeft() {
-        Interval interval = new Interval(pickUpTimeFrom, pickUpTimeTo);
+        Interval interval = new Interval(pickupTimeFrom, pickupTimeTo);
         return interval.toDurationMillis();
     }
 
+    public FoodLocation getDonator() {
+        return donator;
+    }
 }

@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class FoodLocation {
 
+    private int id;
     private String name;
     private String description;
     private double lat;
@@ -14,6 +15,10 @@ public class FoodLocation {
         this.name = name;
         this.description = description;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
