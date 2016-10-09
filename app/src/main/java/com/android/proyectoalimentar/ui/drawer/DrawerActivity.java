@@ -24,6 +24,7 @@ public class DrawerActivity extends AppCompatActivity {
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     private Map<DrawerItem, DrawerItemContainer> drawerItems;
+    private DrawerItem selectedItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class DrawerActivity extends AppCompatActivity {
 
 
     public void openDrawerItem(DrawerItem drawerItem) {
+        selectedItem = drawerItem;
         hideDrawer();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -64,6 +66,15 @@ public class DrawerActivity extends AppCompatActivity {
     private void hideDrawer() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (selectedItem == DrawerItem.MAP) {
+            super.onBackPressed();
+        } else {
+            openDrawerItem(DrawerItem.MAP);
         }
     }
 
