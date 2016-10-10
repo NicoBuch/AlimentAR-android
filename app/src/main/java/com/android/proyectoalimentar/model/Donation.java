@@ -35,7 +35,10 @@ public class Donation {
     }
 
     public long getTimeLeft() {
-        Interval interval = new Interval(pickupTimeFrom, pickupTimeTo);
+        if (DateTime.now().isAfter(pickupTimeTo)) {
+            return 0;
+        }
+        Interval interval = new Interval(DateTime.now(), pickupTimeTo);
         return interval.toDurationMillis();
     }
 
