@@ -78,7 +78,7 @@ public class ConfirmDonationView extends FrameLayout {
 
     @OnClick(R.id.accept_donation)
     void onDonationConfirmed() {
-        donationsRepository.createDonation(foodLocation.getDonator().getId(),
+        donationsRepository.createDonation(foodLocation.getId(),
                 new RepoCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean created) {

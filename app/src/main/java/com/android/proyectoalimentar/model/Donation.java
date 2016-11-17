@@ -5,6 +5,7 @@ import org.joda.time.Interval;
 
 public class Donation {
 
+    int id;
     String status;
     String description;
     DateTime pickupTimeFrom;
@@ -44,5 +45,9 @@ public class Donation {
 
     public FoodLocation getDonator() {
         return donator;
+    }
+
+    public int getId() {
+        return id;
     }
 }
