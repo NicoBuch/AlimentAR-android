@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.proyectoalimentar.R;
@@ -17,12 +18,16 @@ import com.android.proyectoalimentar.repository.RepoCallback;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ConfirmDonationView extends FrameLayout {
 
     @Inject DonationsRepository donationsRepository;
+
+    @BindView(R.id.confirm_donation_time)
+    TextView confirmDonationTime;
 
     private Donation foodLocation;
     private DonationConfirmationListener donationConfirmationListener;
@@ -65,6 +70,7 @@ public class ConfirmDonationView extends FrameLayout {
                 .inject(this);
 
         setOnClickListener(v -> setVisibility(GONE));
+        setPossibleTimeLeft();
     }
 
     public void setDonationConfirmationListener(
@@ -72,8 +78,15 @@ public class ConfirmDonationView extends FrameLayout {
         this.donationConfirmationListener = donationConfirmationListener;
     }
 
+    public void setPossibleTimeLeft(){
+        if(foodLocation != null) {
+            confirmDonationTime.setText(String.valueOf(foodLocation.getPossibleTimeLeft()) + " MIN");
+        }
+    }
+
     public void setFoodLocation(Donation foodLocation) {
         this.foodLocation = foodLocation;
+        setPossibleTimeLeft();
     }
 
     @OnClick(R.id.accept_donation)
@@ -93,7 +106,7 @@ public class ConfirmDonationView extends FrameLayout {
 
                     @Override
                     public void onError(String error) {
-                        Toast.makeText(getContext(), "No se pudo crear la donacion",
+                        Toast.makeText(getContext(), "No se pudo activar la donacion",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
