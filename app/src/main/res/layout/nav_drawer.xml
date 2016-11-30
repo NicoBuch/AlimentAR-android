@@ -1,36 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@color/white"
     android:orientation="vertical"
     >
 
-    <TextView
+    <LinearLayout
+        android:padding="@dimen/description_padding"
         android:layout_width="match_parent"
         android:layout_height="192dp"
-        android:background="@color/com_facebook_button_background_color_selected"
-        android:text="HEADER"
-        android:gravity="center"
-        />
+        android:orientation="vertical"
+        android:background="@drawable/img_drawer_cover">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/portrait"/>
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/description_padding"
+                android:text="Nombre"
+                android:textColor="@color/colorAccent"
+                />
+        </LinearLayout>
 
-    <TextView
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/nav_item_map"
-        style="@style/NavDrawerElement"
-        android:text="@string/map"
-        />
+        style="@style/NavDrawerElement">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dontation_directions"
+            android:layout_marginRight="@dimen/description_padding"/>
+        <TextView
+            style="@style/NavItem"
+            android:text="@string/map"
+            />
+    </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/nav_item_donations"
-        style="@style/NavDrawerElement"
-        android:text="@string/donations"
-        />
+        style="@style/NavDrawerElement">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_drawer_dontations"
+            android:layout_marginRight="@dimen/description_padding"/>
+        <TextView
+            style="@style/NavItem"
+            android:text="@string/donations"
+            />
+    </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/nav_item_terms"
-        style="@style/NavDrawerElement"
-        android:text="@string/terms_and_conditions"
-        />
+        style="@style/NavDrawerElement">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_drawer_terms_conditions"
+            android:layout_marginRight="@dimen/description_padding"/>
+        <TextView
+            style="@style/NavItem"
+            android:text="@string/terms_and_conditions"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sign_out"
+        style="@style/NavDrawerElement">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_drawer_logout"
+            android:layout_marginRight="@dimen/description_padding"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/NavItem"
+            android:text="@string/sign_out"
+            />
+    </LinearLayout>
+
+
 
 </LinearLayout>

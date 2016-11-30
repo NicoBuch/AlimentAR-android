@@ -21,4 +21,9 @@
         <item name="android:paddingLeft">16dp</item>
     </style>
 
+    <style name="NavItem" parent="NavDrawerElement">
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
 </resources>

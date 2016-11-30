@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="description_padding">8dp</dimen>
+
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="tabs_height">48dp</dimen>
     <dimen name="toolbar_padding">0dp</dimen>
