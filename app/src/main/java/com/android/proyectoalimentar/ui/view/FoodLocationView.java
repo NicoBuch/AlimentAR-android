@@ -29,6 +29,7 @@ public class FoodLocationView extends FrameLayout {
     @BindView(R.id.address) TextView address;
     @BindView(R.id.opening_time) TextView openingTime;
     @BindView(R.id.description) TextView description;
+    @BindView(R.id.description_layout) View descriptionLayout;
     @BindView(R.id.find_donation) View findDonation;
     @BindView(R.id.time_container) View timeContainer;
 
@@ -82,11 +83,14 @@ public class FoodLocationView extends FrameLayout {
     }
 
     public void setFoodLocation(FoodLocation foodLocation) {
-        // TODO: Update hardcoded texts.
         name.setText(foodLocation.getName());
         distance.setText("");
         address.setText(foodLocation.getAddress());
-        description.setText(foodLocation.getDescription());
+        if(this.foodLocation.getDescription() == null || this.foodLocation.getDescription().isEmpty()){
+            descriptionLayout.setVisibility(View.GONE);
+        }else{
+            description.setText(this.foodLocation.getDescription());
+        }
     }
 
     private String stringFromDate(DateTime dateTime) {

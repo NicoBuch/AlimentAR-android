@@ -44,12 +44,12 @@ public class HeightModifierOnPageChangedListener implements ViewPager.OnPageChan
 
         FoodLocationView currentView = locationAdapter.getViewAt(currentPosition);
         if (currentView != null) {
-            currentView.setHeight(MIN_HEIGHT + HEIGHT_DIFF * realOffset);
+//            currentView.setHeight(MIN_HEIGHT + HEIGHT_DIFF * realOffset);
         }
 
         FoodLocationView lastView = locationAdapter.getViewAt(previousPosition);
         if (lastView != null) {
-            lastView.setHeight(MIN_HEIGHT + HEIGHT_DIFF * (1 - realOffset));
+//            lastView.setHeight(MIN_HEIGHT + HEIGHT_DIFF * (1 - realOffset));
         }
 
         lastPosition = position;

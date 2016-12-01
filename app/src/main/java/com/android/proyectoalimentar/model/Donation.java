@@ -36,6 +36,10 @@ public class Donation {
         return pickupTimeTo;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public long getTimeLeft() {
         if (DateTime.now().isAfter(pickupTimeTo)) {
             return 0;
