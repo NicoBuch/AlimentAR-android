@@ -28,7 +28,7 @@ public class FoodLocationsRepository {
         donationsService = RetrofitServices.getService(DonationsService.class);
     }
 
-    public void getFoodGivers(double lat, double lng, double radius,
+    public void getFoodGivers(double lat, double lng, double radius, boolean useCache,
                               RepoCallback<List<Donation>> repoCallback) {
         if (!givers.isEmpty()) {
             repoCallback.onSuccess(givers);
@@ -38,7 +38,7 @@ public class FoodLocationsRepository {
                 .enqueue(createSimpleCallback(repoCallback, givers));
     }
 
-    public void getFoodReceivers(double lat, double lng, double radius,
+    public void getFoodReceivers(double lat, double lng, double radius, boolean useCache,
                                  RepoCallback<List<Donation>> repoCallback) {
         if (!receivers.isEmpty()) {
             repoCallback.onSuccess(receivers);
@@ -52,6 +52,7 @@ public class FoodLocationsRepository {
                         for (FoodLocation foodLocation : foodLocations) {
                             receivers.add(new Donation(foodLocation));
                         }
+                        repoCallback.onSuccess(receivers);
                     }
 
                     @Override

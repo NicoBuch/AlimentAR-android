@@ -6,91 +6,101 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:id="@+id/swipeRefresh">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:background="?attr/colorPrimary"
-            android:paddingTop="@dimen/toolbar_padding"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             >
 
-            <EditText
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:hint="@string/search"
-                />
+                android:layout_height="@dimen/toolbar_height"
+                android:background="?attr/colorPrimary"
+                android:paddingTop="@dimen/toolbar_padding"
+                >
 
-        </android.support.v7.widget.Toolbar>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:hint="@string/search"
+                    />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tabs_height"
-            android:background="@color/white"
-            app:tabSelectedTextColor="@color/yellow"
-            app:tabTextColor="@color/gray"
-            app:tabIndicatorColor="@color/yellow"
-            app:tabIndicatorHeight="2dp"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            android:elevation="4dp"
-            >
+            </android.support.v7.widget.Toolbar>
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/givers"
-                />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabs_height"
+                android:background="@color/white"
+                app:tabSelectedTextColor="@color/yellow"
+                app:tabTextColor="@color/gray"
+                app:tabIndicatorColor="@color/yellow"
+                app:tabIndicatorHeight="2dp"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                android:elevation="4dp"
+                >
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/recipients"
-                />
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/givers"
+                    />
 
-        </android.support.design.widget.TabLayout>
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/recipients"
+                    />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            </android.support.design.widget.TabLayout>
 
             <FrameLayout
-                android:id="@+id/map_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                >
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/location_details"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_gravity="bottom"
-                android:clipToPadding="false"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                />
+                <FrameLayout
+                    android:id="@+id/map_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
 
-        </FrameLayout>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/location_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="bottom"
+                    android:clipToPadding="false"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    />
 
-    </LinearLayout>
+            </FrameLayout>
 
-    <com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView
-        android:id="@+id/confirm_donation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        />
+        </LinearLayout>
+
+        <com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView
+            android:id="@+id/confirm_donation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>

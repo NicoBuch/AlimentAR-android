@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @BindView(R.id.location_details) ViewPager locationDetails;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.confirm_donation) ConfirmDonationView confirmDonationView;
+    @BindView(R.id.swipeRefresh) SwipeRefreshLayout swipeRefreshLayout;
 
     private GoogleMap map;
     private LocationAdapter locationAdapter;
@@ -76,10 +78,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         setupTabs();
         setupLocationDetailsViewPager();
         setupConfirmDonationView();
+        setupSwipeRefresh();
 
         AlimentarApp.inject(this);
 
         return view;
+    }
+
+    private void setupSwipeRefresh(){
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            switch (tabLayout.getSelectedTabPosition()){
+                case TAB_GIVERS:
+                    populateFoodGivers(false);
+                    break;
+                case TAB_RECEIVERS:
+                    populateFoodReceivers(false);
+                    break;
+            }
+        });
+
     }
 
     @Override
@@ -129,35 +147,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void populateMap() {
         switch (tabLayout.getSelectedTabPosition()) {
             case TAB_GIVERS:
-                populateFoodGivers();
+                populateFoodGivers(true);
                 break;
             case TAB_RECEIVERS:
-                populateFoodReceivers();
+                populateFoodReceivers(true);
                 break;
         }
     }
 
-    private void populateFoodGivers() {
+    private void populateFoodGivers(boolean useCache) {
         if (clearMap()) {
-            locationAdapter.setDonationButtonAvailable(true);
             LatLng targetPosition = map.getCameraPosition().target;
             foodLocationsRepository.getFoodGivers(
                     targetPosition.latitude,
                     targetPosition.longitude,
-                    MapCalculator.getVisibleRadius(map),
+                    MapCalculator.getVisibleRadius(map), useCache,
                     createFoodRepoCallback());
+            locationAdapter.setDonationButtonAvailable(true);
         }
     }
 
-    private void populateFoodReceivers() {
+    private void populateFoodReceivers(boolean useCache) {
         if (clearMap()) {
-            locationAdapter.setDonationButtonAvailable(false);
             LatLng targetPosition = map.getCameraPosition().target;
             foodLocationsRepository.getFoodReceivers(
                     targetPosition.latitude,
                     targetPosition.longitude,
-                    MapCalculator.getVisibleRadius(map),
+                    MapCalculator.getVisibleRadius(map), useCache,
                     createFoodRepoCallback());
+            locationAdapter.setDonationButtonAvailable(false);
         }
     }
 
@@ -174,6 +192,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return new RepoCallback<List<Donation>>() {
             @Override
             public void onSuccess(List<Donation> foodProviders) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (getActivity() == null || getActivity().isFinishing()) {
                     return;
                 }
@@ -187,6 +206,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             @Override
             public void onError(String error) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (getActivity() == null || getActivity().isFinishing()) {
                     return;
                 }
@@ -240,7 +260,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return true;
         });
 
-        populateFoodGivers();
+        populateFoodGivers(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_POSITION, 12f));
     }
 

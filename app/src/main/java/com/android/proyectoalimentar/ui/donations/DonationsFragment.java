@@ -3,6 +3,7 @@ package com.android.proyectoalimentar.ui.donations;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +32,8 @@ public class DonationsFragment extends Fragment {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.donations_list) RecyclerView donationsList;
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Inject DonationsRepository donationsRepository;
 
@@ -50,7 +53,7 @@ public class DonationsFragment extends Fragment {
 
         setupDrawer();
         setupDonationsList();
-
+        setupSwipeRefresh();
 
         return view;
     }
@@ -60,21 +63,38 @@ public class DonationsFragment extends Fragment {
         toolbar.setNavigationOnClickListener(v -> ((DrawerActivity) getActivity()).toggleDrawer());
     }
 
+    private void setupSwipeRefresh(){
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            refreshDonationList();
+        });
+    }
+
     private void setupDonationsList() {
         donationsAdapter = new DonationsAdapter();
         donationsList.setAdapter(donationsAdapter);
         donationsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        swipeRefreshLayout.post(()-> {
+            swipeRefreshLayout.setRefreshing(true);
+            refreshDonationList();
+        });
 
+
+    }
+
+    private void refreshDonationList(){
         donationsRepository.getDonationsList(new RepoCallback<List<Donation>>() {
             @Override
             public void onSuccess(List<Donation> donations) {
                 donationsAdapter.setDonations(donations);
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onError(String error) {
                 Toast.makeText(getActivity(), "Hubo un error al cargar las donaciones activas",
                         Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
