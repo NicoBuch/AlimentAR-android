@@ -14,64 +14,81 @@
         android:background="@color/white"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <com.android.proyectoalimentar.ui.view.FoodLocationView
-                android:id="@+id/food_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/light_gray"
-                />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_margin="8dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 >
 
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                <com.android.proyectoalimentar.ui.view.FoodLocationView
+                    android:id="@+id/food_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
                     android:layout_marginLeft="8dp"
-                    android:src="@drawable/ic_time"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/light_gray"
                     />
 
-                <com.android.proyectoalimentar.ui.view.TimerView
-                    android:id="@+id/timer"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="16dp"
-                    tools:text="00:00"
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    >
 
-                <TextView
-                    android:id="@+id/cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:textAllCaps="true"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp"
-                    fontPath="fonts/Roboto-Bold.ttf"
-                    />
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/ic_time"
+                        />
+
+                    <com.android.proyectoalimentar.ui.view.TimerView
+                        android:id="@+id/timer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="16dp"
+                        tools:text="00:00"
+                        />
+
+                    <TextView
+                        android:id="@+id/cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancel"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        fontPath="fonts/Roboto-Bold.ttf"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:indeterminateDrawable="@drawable/progress" >
+            </ProgressBar>
+
+        </RelativeLayout>
     
     </android.support.v7.widget.CardView>
 

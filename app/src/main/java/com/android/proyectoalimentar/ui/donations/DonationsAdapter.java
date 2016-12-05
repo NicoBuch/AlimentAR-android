@@ -3,6 +3,7 @@ package com.android.proyectoalimentar.ui.donations;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.proyectoalimentar.AlimentarApp;
@@ -65,6 +66,7 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
 
         @BindView(R.id.food_location) FoodLocationView foodLocationView;
         @BindView(R.id.timer) TimerView timer;
+        @BindView(R.id.progressBar) ProgressBar progressBar;
 
         private Donation donation;
 
@@ -84,10 +86,15 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
 
         @OnClick(R.id.cancel)
         void cancelDonation() {
+            progressBar.setVisibility(View.VISIBLE);
             donationsRepository.deactivateDonation(donation, new RepoCallback<Boolean>() {
                 @Override
-                public void onSuccess(Boolean value) {
-                    removeDonation(donation);
+                public void onSuccess(Boolean deactivated) {
+                    progressBar.setVisibility(View.GONE);
+                    if(deactivated) {
+                        removeDonation(donation);
+                    }
+                    onError(null);
                 }
 
                 @Override

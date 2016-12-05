@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class ConfirmDonationView extends FrameLayout {
 
     @BindView(R.id.confirm_donation_time)
     TextView confirmDonationTime;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private Donation foodLocation;
     private DonationConfirmationListener donationConfirmationListener;
@@ -91,10 +94,12 @@ public class ConfirmDonationView extends FrameLayout {
 
     @OnClick(R.id.accept_donation)
     void onDonationConfirmed() {
+        progressBar.setVisibility(VISIBLE);
         donationsRepository.createDonation(foodLocation.getId(),
                 new RepoCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean created) {
+                        progressBar.setVisibility(GONE);
                         if (created) {
                             if (donationConfirmationListener != null) {
                                 donationConfirmationListener.onDonationConfirmed();
@@ -106,6 +111,7 @@ public class ConfirmDonationView extends FrameLayout {
 
                     @Override
                     public void onError(String error) {
+                        progressBar.setVisibility(GONE);
                         Toast.makeText(getContext(), "No se pudo activar la donacion",
                                 Toast.LENGTH_SHORT).show();
                     }
