@@ -26,6 +26,7 @@
     <string name="search">Buscar</string>
 
     <string name="facebook_error">Error al iniciar sesión con Facebook</string>
+    <string name="deactivate_error">Error al cancelar una donación</string>
     <string name="cancel">Cancelar</string>
     <string name="confirm_donation_time">60 min</string>
     <string name="confirm_donation_explanation">Tenes 60 minutos para pasar a buscar la donacipn</string>

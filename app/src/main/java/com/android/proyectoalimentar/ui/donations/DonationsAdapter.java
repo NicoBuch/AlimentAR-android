@@ -3,14 +3,20 @@ package com.android.proyectoalimentar.ui.donations;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.model.Donation;
+import com.android.proyectoalimentar.repository.DonationsRepository;
+import com.android.proyectoalimentar.repository.RepoCallback;
 import com.android.proyectoalimentar.ui.view.FoodLocationView;
 import com.android.proyectoalimentar.ui.view.TimerView;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,9 +27,12 @@ import static android.view.View.inflate;
 public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.DonationsViewHolder> {
 
     private List<Donation> donations;
+    DonationsRepository donationsRepository;
 
-    public DonationsAdapter() {
+
+    public DonationsAdapter(DonationsRepository donationsRepository) {
         donations = new LinkedList<>();
+        this.donationsRepository = donationsRepository;
     }
 
     @Override
@@ -47,7 +56,12 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
         notifyDataSetChanged();
     }
 
-    static class DonationsViewHolder extends RecyclerView.ViewHolder {
+    public void removeDonation(Donation donation){
+        donations.remove(donation);
+        notifyDataSetChanged();
+    }
+
+    class DonationsViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.food_location) FoodLocationView foodLocationView;
         @BindView(R.id.timer) TimerView timer;
@@ -70,7 +84,17 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
 
         @OnClick(R.id.cancel)
         void cancelDonation() {
-            // TODO
+            donationsRepository.deactivateDonation(donation, new RepoCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean value) {
+                    removeDonation(donation);
+                }
+
+                @Override
+                public void onError(String error) {
+                    Toast.makeText(AlimentarApp.getContext(),R.string.cancel,Toast.LENGTH_SHORT);
+                }
+            });
         }
     }
 }

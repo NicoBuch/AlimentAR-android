@@ -27,4 +27,7 @@ public interface DonationsService {
     @GET("donations/active")
     Call<List<Donation>> fetchDonationsList();
 
+    @POST("donations/{id}/deactivate")
+    Call<Void> deactivate(@Path("id") int id);
+
 }

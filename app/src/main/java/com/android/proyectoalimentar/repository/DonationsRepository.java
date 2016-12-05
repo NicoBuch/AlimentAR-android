@@ -56,4 +56,18 @@ public class DonationsRepository {
                 });
     }
 
+    public void deactivateDonation(Donation donation ,RepoCallback<Boolean> repoCallback){
+        donationsService.deactivate(donation.getId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                repoCallback.onSuccess(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                repoCallback.onError(t.getMessage());
+            }
+        });
+    }
+
 }

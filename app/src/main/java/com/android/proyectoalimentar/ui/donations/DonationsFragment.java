@@ -71,7 +71,7 @@ public class DonationsFragment extends Fragment {
     }
 
     private void setupDonationsList() {
-        donationsAdapter = new DonationsAdapter();
+        donationsAdapter = new DonationsAdapter(donationsRepository);
         donationsList.setAdapter(donationsAdapter);
         donationsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         swipeRefreshLayout.post(()-> {
