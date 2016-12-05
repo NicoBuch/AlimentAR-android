@@ -4,6 +4,7 @@ import com.android.proyectoalimentar.di.module.AppModule;
 import com.android.proyectoalimentar.di.module.NetworkModule;
 import com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
+import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 
@@ -22,6 +23,8 @@ public interface AppComponent {
     void inject(DonationsFragment activity);
 
     void inject(ConfirmDonationView activity);
+
+    void inject(DrawerActivity drawerActivity);
 
 }
 

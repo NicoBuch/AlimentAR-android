@@ -7,6 +7,7 @@ import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
 import com.android.proyectoalimentar.di.module.NetworkModule;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
+import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.facebook.FacebookSdk;
@@ -40,6 +41,13 @@ public class AlimentarApp extends Application {
     }
 
     public static void inject(LoginActivity target) {
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(target))
+                .build()
+                .inject(target);
+    }
+
+    public static void inject(DrawerActivity target) {
         DaggerAppComponent.builder()
                 .appModule(new AppModule(target))
                 .build()
