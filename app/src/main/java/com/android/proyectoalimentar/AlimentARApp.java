@@ -6,6 +6,7 @@ import android.content.Context;
 import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
 import com.android.proyectoalimentar.di.module.NetworkModule;
+import com.android.proyectoalimentar.services.RegistrationIntentService;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
@@ -52,6 +53,13 @@ public class AlimentarApp extends Application {
                 .appModule(new AppModule(target))
                 .build()
                 .inject(target);
+    }
+
+    public static void inject(RegistrationIntentService service){
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(service))
+                .build()
+                .inject(service);
     }
 
     private void setupCalligraphy() {

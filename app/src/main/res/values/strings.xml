@@ -35,4 +35,7 @@
     <string name="accept_terms_and_conditions">Acepto los <u>Términos y condiciones</u></string>
     <string name="facebook_login">Iniciar sesión con Facebook</string>
 
+    <!--Notification-->
+    <string name="notification_donation_close">Donación cercana</string>
+
 </resources>
