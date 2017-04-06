@@ -17,4 +17,10 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    private Avatar avatar;
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
 }

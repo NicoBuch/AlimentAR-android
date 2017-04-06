@@ -12,6 +12,9 @@
     <string name="donations">Donaciones</string>
     <string name="terms_and_conditions">Términos y condiciones</string>
     <string name="sign_out">Cerrar sesión</string>
+    <string name="name">Nombre</string>
+    <string name="address">Dirección</string>
+
 
     <!-- Info window -->
     <string name="see_details">Detalle</string>

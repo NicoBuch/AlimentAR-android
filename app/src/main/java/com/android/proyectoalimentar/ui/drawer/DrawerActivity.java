@@ -15,6 +15,7 @@ import com.android.proyectoalimentar.network.LoginService;
 import com.android.proyectoalimentar.repository.RepoCallback;
 import com.android.proyectoalimentar.repository.UserRepository;
 import com.annimon.stream.Stream;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +33,12 @@ public class DrawerActivity extends AppCompatActivity {
 
     private static final DrawerItem DEFAULT_ITEM = DrawerItem.MAP;
 
-    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
     @BindView(R.id.name)
     TextView name;
+    @BindView(R.id.profile_image)
+    SimpleDraweeView profileImage;
 
     @Inject
     UserRepository userRepository;
@@ -117,6 +121,13 @@ public class DrawerActivity extends AppCompatActivity {
 
     private void refreshUserInformation(User user){
         name.setText(user.getName());
+
+        if(user.getName() != null && !user.getName().isEmpty()){
+            name.setText(user.getName());
+        }
+        if(user.getAvatar() != null && user.getAvatar().getThumb() != null){
+            profileImage.setImageURI(user.getAvatar().getThumb());
+        }
     }
 
 }
