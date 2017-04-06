@@ -12,6 +12,7 @@ import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.facebook.FacebookSdk;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -27,6 +28,7 @@ public class AlimentarApp extends Application {
         context = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
         JodaTimeAndroid.init(this);
+        Fresco.initialize(this);
         setupCalligraphy();
     }
 
