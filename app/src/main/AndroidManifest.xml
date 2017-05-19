@@ -8,6 +8,8 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -100,6 +102,10 @@
             android:name=".services.RegistrationIntentService"
             android:exported="false">
         </service>
+        <service
+            android:name=".services.LocationUpdatesService"
+            android:enabled="true"
+            android:exported="true" />
         <!---->
 
     </application>

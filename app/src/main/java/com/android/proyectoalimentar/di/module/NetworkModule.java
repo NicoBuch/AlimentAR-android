@@ -1,6 +1,9 @@
 package com.android.proyectoalimentar.di.module;
 
+import android.content.Context;
+
 import com.android.proyectoalimentar.network.DonationsService;
+import com.android.proyectoalimentar.network.LocationService;
 import com.android.proyectoalimentar.network.LoginService;
 import com.android.proyectoalimentar.network.NotificationService;
 import com.android.proyectoalimentar.network.RetrofitServices;
@@ -10,6 +13,7 @@ import dagger.Provides;
 
 @Module
 public class NetworkModule {
+
 
     @Provides
     DonationsService provideDonationsService() {
@@ -25,5 +29,11 @@ public class NetworkModule {
     NotificationService provideNotificationService(){
         return RetrofitServices.getService(NotificationService.class);
     }
+
+    @Provides
+    LocationService provideLocationService(){
+        return RetrofitServices.getService(LocationService.class);
+    }
+
 
 }

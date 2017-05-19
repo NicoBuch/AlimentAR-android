@@ -2,6 +2,7 @@ package com.android.proyectoalimentar.di.component;
 
 import com.android.proyectoalimentar.di.module.AppModule;
 import com.android.proyectoalimentar.di.module.NetworkModule;
+import com.android.proyectoalimentar.services.LocationUpdatesService;
 import com.android.proyectoalimentar.services.RegistrationIntentService;
 import com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
@@ -28,6 +29,9 @@ public interface AppComponent {
     void inject(DrawerActivity drawerActivity);
 
     void inject(RegistrationIntentService service);
+
+    void inject(LocationUpdatesService service);
+
 
 
 }

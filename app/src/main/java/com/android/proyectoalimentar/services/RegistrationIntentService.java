@@ -23,7 +23,6 @@ public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
     private static final String DEVICE_TYPE = "android";
-    private static final String[] TOPICS = {"global"};
 
     @Inject
     NotificationService notificationService;

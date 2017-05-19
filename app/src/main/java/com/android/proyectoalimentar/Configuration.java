@@ -15,4 +15,5 @@ public class Configuration {
     public static final String VOLUNTEER_NAME = "VOLUNTEER_NAME";
     public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
 
+
 }
