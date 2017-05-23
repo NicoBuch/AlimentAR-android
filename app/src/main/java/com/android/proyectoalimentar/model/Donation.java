@@ -3,6 +3,8 @@ package com.android.proyectoalimentar.model;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Donation {
 
     int id;

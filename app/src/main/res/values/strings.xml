@@ -41,6 +41,7 @@
     <!--Notification-->
     <string name="notification_donation_close">Donación cercana</string>
 
+
     <string name="permission_rationale">Se necesita la locación para mostrar donaciones cercanas</string>
     <string name="ok">ok</string>
 

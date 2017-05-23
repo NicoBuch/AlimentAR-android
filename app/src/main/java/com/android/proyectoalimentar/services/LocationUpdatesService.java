@@ -211,12 +211,14 @@ public class LocationUpdatesService extends Service implements GoogleApiClient.C
      * Makes a request for location updates.
      */
     public void requestLocationUpdates() {
+
         Log.i(TAG, "Requesting location updates");
         LocationUtils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, LocationUpdatesService.this);
+            LocationUtils.setRequestingLocationUpdates(this, true);
         } catch (SecurityException unlikely) {
             LocationUtils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);

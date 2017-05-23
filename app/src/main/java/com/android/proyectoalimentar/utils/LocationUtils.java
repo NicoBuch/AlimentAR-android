@@ -67,7 +67,10 @@ public class LocationUtils {
      */
     public static boolean checkPermissions(Context context) {
         return  PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_FINE_LOCATION);
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                &&
+                PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 
 
@@ -78,7 +81,8 @@ public class LocationUtils {
     public static void requestFineLocationPermissions(Activity activity) {
         boolean shouldProvideRationale =
                 ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                        Manifest.permission.ACCESS_FINE_LOCATION);
+                        Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                        Manifest.permission.ACCESS_COARSE_LOCATION);
 
         // Provide an additional rationale to the user. This would happen if the user denied the
         // request previously, but didn't check the "Don't ask again" checkbox.
@@ -90,7 +94,7 @@ public class LocationUtils {
                     .setAction(R.string.ok, view -> {
                         // Request permission
                         ActivityCompat.requestPermissions(activity,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                                 REQUEST_PERMISSIONS_REQUEST_CODE);
                     })
                     .show();
@@ -99,7 +103,7 @@ public class LocationUtils {
             // sets the permission in a given state or the user denied the permission
             // previously and checked "Never ask again".
             ActivityCompat.requestPermissions(activity,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
     }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.proyectoalimentar.model.Donation;
+import com.android.proyectoalimentar.model.FoodLocation;
 import com.android.proyectoalimentar.ui.view.FoodLocationView;
 
 import java.util.ArrayList;
@@ -88,6 +89,15 @@ public class LocationAdapter extends PagerAdapter {
     public int getLocationPosition(Donation foodLocation) {
         for (int i = 0; i < foodLocations.size(); i++) {
             if (foodLocation.equals(foodLocations.get(i))) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public int getFoodDonatorPosition(FoodLocation foodLocation){
+        for (int i = 0; i < foodLocations.size(); i++) {
+            if (foodLocation.equals(foodLocations.get(i).getDonator())) {
                 return i;
             }
         }

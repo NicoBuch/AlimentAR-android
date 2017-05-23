@@ -208,6 +208,11 @@ public class DrawerActivity extends AppCompatActivity{
                 // receive empty arrays.
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission was granted.
+                // We have to verify that the service is already binded.
+                if(locationService != null)
+                {
+                    locationService.requestLocationUpdates();
+                }
             } else {
                 // Permission denied.
             }

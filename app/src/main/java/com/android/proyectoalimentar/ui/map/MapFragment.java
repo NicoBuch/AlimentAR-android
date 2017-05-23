@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +19,6 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -292,7 +290,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             selectMarker(marker);
 
             Donation foodLocation = markersRepository.getFoodLocation(selectedMarker);
-            int foodLocationPosition = locationAdapter.getLocationPosition(foodLocation);
+            int foodLocationPosition = 0;
+            switch (tabLayout.getSelectedTabPosition()) {
+                case TAB_GIVERS:
+                    foodLocationPosition = locationAdapter.getLocationPosition(foodLocation);
+                    break;
+                case TAB_RECEIVERS:
+                    foodLocationPosition = locationAdapter.getFoodDonatorPosition(foodLocation.getDonator());
+                    break;
+            }
             locationDetails.setCurrentItem(foodLocationPosition, true);
 
             map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
@@ -302,33 +308,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         populateFoodGivers(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_POSITION, 12f));
         setMyLocationButton();
-        setRefreshMarkersListener();
+        setMapMoveListeners();
 
     }
 
     /**
      * Method that set a listener to refresh all the donations/food receivers.
      */
-    private void setRefreshMarkersListener(){
-        map.setOnCameraIdleListener(() -> populateMap());
+    private void setMapMoveListeners(){
+        //Disable the swipe behaviour so we can scroll over the map without refresh the page.
+        map.setOnCameraIdleListener(() ->swipeRefreshLayout.setEnabled(true));
+        map.setOnCameraMoveStartedListener((map) -> swipeRefreshLayout.setEnabled(false));
+        map.setOnCameraMoveCanceledListener(() -> swipeRefreshLayout.setEnabled(true));
     }
 
     private void setMyLocationButton() {
+        //Verify if the app the proper permissions before activate myLocation button.
         if (ActivityCompat.checkSelfPermission(MapFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(MapFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            LocationUtils.requestFineLocationPermissions(MapFragment.this.getActivity());
+//            LocationUtils.requestFineLocationPermissions(MapFragment.this.getActivity());
             return;
         }
         map.setMyLocationEnabled(true);
         map.setOnMyLocationButtonClickListener(() -> {
             boolean havePermissions = LocationUtils.checkPermissions(MapFragment.this.getContext());
             if (!havePermissions) {
-                // If the context doesn' have correct permission then request fine access
+                // If the context doesn't have correct permission then request fine access
                 // location permission.
                 LocationUtils.requestFineLocationPermissions(MapFragment.this.getActivity());
                 return true;
 
             } else {
+
+                map.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(lastLocation.getLatitude()
+                        , lastLocation.getLongitude())));
                 //If context have fine location permission, then should continue with the
                 // map location move.
                 return false;
@@ -370,6 +383,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 map.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(lastLocation.getLatitude()
                         , lastLocation.getLongitude())));
                 //Update map
+            }
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == LocationUtils.REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                // If user interaction was interrupted, the permission request is cancelled and you
+                // receive empty arrays.
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission was granted.
+                // Set location button of the map.
+                if(map != null){
+                    setMyLocationButton();
+                }
+            } else {
+                // Permission denied.
             }
         }
     }
