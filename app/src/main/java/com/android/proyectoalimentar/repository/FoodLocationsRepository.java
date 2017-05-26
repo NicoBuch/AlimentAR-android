@@ -30,7 +30,8 @@ public class FoodLocationsRepository {
 
     public void getFoodGivers(double lat, double lng, double radius, boolean useCache,
                               RepoCallback<List<Donation>> repoCallback) {
-        if (!givers.isEmpty()) {
+        //If the list of givers is not empty and you must use cache
+        if (!givers.isEmpty() && useCache) {
             repoCallback.onSuccess(givers);
             return;
         }
@@ -40,7 +41,8 @@ public class FoodLocationsRepository {
 
     public void getFoodReceivers(double lat, double lng, double radius, boolean useCache,
                                  RepoCallback<List<Donation>> repoCallback) {
-        if (!receivers.isEmpty()) {
+        //If the list of givers is not empty and you must use cache
+        if (!receivers.isEmpty() && useCache) {
             repoCallback.onSuccess(receivers);
             return;
         }

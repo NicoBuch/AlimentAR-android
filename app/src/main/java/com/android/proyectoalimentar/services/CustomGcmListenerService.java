@@ -14,7 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CustomGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
-    private static final String NOTIFICATION_TITLE = "Titulo de notification";
     AtomicInteger notificatioIdGenerator = new AtomicInteger();
 
 

@@ -25,7 +25,7 @@ public class CustomNotificationBuilder {
     public static Notification build(NotificationType notificationType, String message, Context context
             , String donationId, String volunteerName){
         switch (notificationType){
-            case DONATIONS_CLOSE:
+            case DONATIONS_NEARBY:
                 return getSimpleMessageNotification(context.getString(notificationType.getTitleResource()),
                         message,
                         context);

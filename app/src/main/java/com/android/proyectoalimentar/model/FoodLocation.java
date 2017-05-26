@@ -10,6 +10,7 @@ public class FoodLocation {
     private double lat;
     private double lng;
     private String address;
+    private Avatar avatar;
 
     public FoodLocation(String name, String description, String address) {
         this.name = name;
@@ -35,6 +36,14 @@ public class FoodLocation {
 
     public String getAddress() {
         return address;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 
     @Override

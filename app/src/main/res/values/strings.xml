@@ -39,7 +39,7 @@
     <string name="facebook_login">Iniciar sesión con Facebook</string>
 
     <!--Notification-->
-    <string name="notification_donation_close">Donación cercana</string>
+    <string name="notification_donation_nearby">Donación cercana</string>
 
 
     <string name="permission_rationale">Se necesita la locación para mostrar donaciones cercanas</string>

@@ -4,7 +4,7 @@ package com.android.proyectoalimentar.model;
 import com.android.proyectoalimentar.R;
 
 public enum NotificationType {
-    DONATIONS_CLOSE("donation_close", R.string.notification_donation_close);
+    DONATIONS_NEARBY("donation_nearby", R.string.notification_donation_nearby);
 
     private String name;
     private int titleResource;

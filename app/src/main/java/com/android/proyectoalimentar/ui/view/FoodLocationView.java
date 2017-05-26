@@ -13,6 +13,7 @@ import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.joda.time.DateTime;
 
@@ -24,6 +25,7 @@ public class FoodLocationView extends FrameLayout {
 
     private Donation foodLocation;
     @BindView(R.id.background) View background;
+    @BindView(R.id.profile_image) SimpleDraweeView profileImage;
     @BindView(R.id.name) TextView name;
     @BindView(R.id.distance) TextView distance;
     @BindView(R.id.address) TextView address;
@@ -79,6 +81,11 @@ public class FoodLocationView extends FrameLayout {
         openingTime.setText(String.format("%s - %s",
                 stringFromDate(donation.getPickupTimeFrom()),
                 stringFromDate(donation.getPickupTimeTo())));
+        if(donation.getDescription() == null || donation.getDescription().isEmpty()){
+            descriptionLayout.setVisibility(View.GONE);
+        }else{
+            description.setText(donation.getDescription());
+        }
         setFoodLocation(donation.getDonator());
     }
 
@@ -86,10 +93,8 @@ public class FoodLocationView extends FrameLayout {
         name.setText(foodLocation.getName());
         distance.setText("");
         address.setText(foodLocation.getAddress());
-        if(this.foodLocation.getDescription() == null || this.foodLocation.getDescription().isEmpty()){
-            descriptionLayout.setVisibility(View.GONE);
-        }else{
-            description.setText(this.foodLocation.getDescription());
+        if(foodLocation.getAvatar() != null){
+            profileImage.setImageURI(foodLocation.getAvatar().getThumb());
         }
     }
 
