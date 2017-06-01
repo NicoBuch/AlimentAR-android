@@ -1,6 +1,7 @@
 package com.android.proyectoalimentar.repository;
 
 import com.android.proyectoalimentar.model.Donation;
+import com.android.proyectoalimentar.model.Qualification;
 import com.android.proyectoalimentar.network.DonationsService;
 
 import java.util.List;
@@ -66,6 +67,20 @@ public class DonationsRepository {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 repoCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void qualifyDonation(Integer donationId, Qualification qualification, RepoCallback<Boolean> repoCallBack){
+        donationsService.qualify(donationId, qualification).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                repoCallBack.onSuccess(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                repoCallBack.onError(t.getMessage());
             }
         });
     }

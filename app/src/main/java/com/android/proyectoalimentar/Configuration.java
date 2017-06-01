@@ -13,7 +13,13 @@ public class Configuration {
     public static final String TOKEN = "TOKEN";
     public static final String DONATION = "DONATION";
     public static final String VOLUNTEER_NAME = "VOLUNTEER_NAME";
+    public static final String DONATOR_NAME = "DONATOR_NAME";
+
     public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
 
+
+    //Qualify
+    public static final int MAX_QUALIFICATION = 5;
+    public static final int MIN_QUALIFICATION = 1;
 
 }

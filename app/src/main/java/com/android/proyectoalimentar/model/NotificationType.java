@@ -4,6 +4,8 @@ package com.android.proyectoalimentar.model;
 import com.android.proyectoalimentar.R;
 
 public enum NotificationType {
+
+    QUALIFICATION_REQUEST("qualification_request", R.string.qualification_request),
     DONATIONS_NEARBY("donation_nearby", R.string.notification_donation_nearby);
 
     private String name;

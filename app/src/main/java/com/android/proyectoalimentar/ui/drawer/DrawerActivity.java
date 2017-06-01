@@ -13,16 +13,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.Configuration;
 import com.android.proyectoalimentar.R;
+import com.android.proyectoalimentar.model.NotificationType;
 import com.android.proyectoalimentar.model.User;
 import com.android.proyectoalimentar.repository.RepoCallback;
 import com.android.proyectoalimentar.repository.UserRepository;
 import com.android.proyectoalimentar.services.LocationUpdatesService;
 import com.android.proyectoalimentar.services.RegistrationIntentService;
+import com.android.proyectoalimentar.ui.view.QualifyVolunteerView;
 import com.android.proyectoalimentar.utils.LocationUtils;
 import com.android.proyectoalimentar.utils.StorageUtils;
 import com.annimon.stream.Stream;
@@ -43,13 +46,14 @@ public class DrawerActivity extends AppCompatActivity{
     private static final String TAG = DrawerActivity.class.getSimpleName();
 
 
-
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.profile_image)
     SimpleDraweeView profileImage;
+    @BindView(R.id.qualify_volunteer_view)
+    QualifyVolunteerView qualifyVolunteerView;
 
     @Inject
     UserRepository userRepository;
@@ -80,7 +84,6 @@ public class DrawerActivity extends AppCompatActivity{
                 .forEach(item ->
                         drawerItems.put(item, new DrawerItemContainer(DrawerActivity.this, item)));
         openDrawerItem(DEFAULT_ITEM);
-
     }
 
     @Override
@@ -89,6 +92,7 @@ public class DrawerActivity extends AppCompatActivity{
         // Bind to the service.
         bindService(new Intent(this, LocationUpdatesService.class), mServiceConnection,
                 Context.BIND_AUTO_CREATE);
+        reactToIntent();
     }
 
 
@@ -217,6 +221,54 @@ public class DrawerActivity extends AppCompatActivity{
                 // Permission denied.
             }
         }
+    }
+
+
+    /**
+     * React to a intent
+     */
+    private void reactToIntent(){
+        Intent intent = getIntent();
+        NotificationType notificationType;
+        if(intent == null){
+            return;
+        }
+        notificationType = getNotificationType(intent);
+        if( notificationType == null){
+            return;
+        }
+        switch (notificationType){
+            case QUALIFICATION_REQUEST:
+                reactToQualificationRequest(intent);
+                break;
+            default:
+        }
+
+    }
+
+    private void reactToQualificationRequest(Intent intent){
+        String donationId = intent.getStringExtra(Configuration.DONATION);
+        String donatorName = intent.getStringExtra(Configuration.DONATOR_NAME);
+
+        //This shouldn't happen except there was an error on the notification system.
+        if(donationId ==null || donationId.isEmpty()){
+            return;
+        }
+
+        //Here we show the qualify view.
+        qualifyVolunteerView.setInformation(donationId,donatorName);
+        qualifyVolunteerView.setVisibility(View.VISIBLE);
+    }
+
+    private NotificationType getNotificationType(Intent intent){
+        return (NotificationType) intent.getSerializableExtra(Configuration.NOTIFICATION_TYPE);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
 

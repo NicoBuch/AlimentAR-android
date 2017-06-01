@@ -40,6 +40,12 @@
 
     <!--Notification-->
     <string name="notification_donation_nearby">Donación cercana</string>
+    <string name="qualification_request">Califique al donador</string>
+
+
+    <!--Qualification View-->
+    <string name="qualify_question">¿Como calificas al donante %1$s?</string>
+    <string name="qualify_error">Hubo un error al calificar al voluntario</string>
 
 
     <string name="permission_rationale">Se necesita la locación para mostrar donaciones cercanas</string>

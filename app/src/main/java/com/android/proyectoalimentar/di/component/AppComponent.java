@@ -9,6 +9,7 @@ import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
 import com.android.proyectoalimentar.ui.map.MapFragment;
+import com.android.proyectoalimentar.ui.view.QualifyVolunteerView;
 
 import javax.inject.Singleton;
 
@@ -32,7 +33,7 @@ public interface AppComponent {
 
     void inject(LocationUpdatesService service);
 
-
+    void inject(QualifyVolunteerView qualifyVolunteerView);
 
 }
 

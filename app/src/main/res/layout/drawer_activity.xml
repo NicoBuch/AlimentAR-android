@@ -14,4 +14,10 @@
 
     <include layout="@layout/nav_drawer" />
 
+    <com.android.proyectoalimentar.ui.view.QualifyVolunteerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/qualify_volunteer_view"/>
+
 </android.support.v4.widget.DrawerLayout>

@@ -2,10 +2,12 @@ package com.android.proyectoalimentar.network;
 
 import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
+import com.android.proyectoalimentar.model.Qualification;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -30,4 +32,6 @@ public interface DonationsService {
     @POST("donations/{id}/deactivate")
     Call<Void> deactivate(@Path("id") int id);
 
+    @POST("donations/{id}/qualify")
+    Call<Void> qualify(@Path("id") Integer id, @Body Qualification qualification);
 }

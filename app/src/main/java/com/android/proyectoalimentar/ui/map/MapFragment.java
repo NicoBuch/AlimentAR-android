@@ -271,7 +271,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void selectFoodLocationAtPosition(int position) {
         Donation foodLocation = locationAdapter.getFoodLocationAt(position);
+        if(foodLocation == null){
+            return;
+        }
         Marker marker = markersRepository.getMarker(foodLocation);
+        map.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
         selectMarker(marker);
     }
 
