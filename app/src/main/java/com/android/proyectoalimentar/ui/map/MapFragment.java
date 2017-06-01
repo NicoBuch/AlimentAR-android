@@ -309,7 +309,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return true;
         });
 
-        populateFoodGivers(true);
+        populateFoodGivers(false);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_POSITION, 12f));
         setMyLocationButton();
         setMapMoveListeners();

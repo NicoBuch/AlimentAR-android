@@ -2,6 +2,7 @@ package com.android.proyectoalimentar.ui.view;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
+import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.joda.time.DateTime;
@@ -22,6 +24,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FoodLocationView extends FrameLayout {
+
+    private static final Uri IMAGE_PLACEHOLDER_URI = new Uri.Builder()
+            .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+            .path(String.valueOf(R.drawable.ic_profile_placeholder))
+            .build();
 
     private Donation foodLocation;
     @BindView(R.id.background) View background;
@@ -84,6 +91,7 @@ public class FoodLocationView extends FrameLayout {
         if(donation.getDescription() == null || donation.getDescription().isEmpty()){
             descriptionLayout.setVisibility(View.GONE);
         }else{
+            descriptionLayout.setVisibility(View.VISIBLE);
             description.setText(donation.getDescription());
         }
         setFoodLocation(donation.getDonator());
@@ -95,6 +103,8 @@ public class FoodLocationView extends FrameLayout {
         address.setText(foodLocation.getAddress());
         if(foodLocation.getAvatar() != null){
             profileImage.setImageURI(foodLocation.getAvatar().getThumb());
+        }else{
+            profileImage.setImageURI(IMAGE_PLACEHOLDER_URI);
         }
     }
 

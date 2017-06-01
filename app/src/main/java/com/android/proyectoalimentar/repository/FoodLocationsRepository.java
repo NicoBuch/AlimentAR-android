@@ -7,6 +7,7 @@ import com.android.proyectoalimentar.network.RetrofitServices;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -51,6 +52,7 @@ public class FoodLocationsRepository {
                 .enqueue(createSimpleCallback(new RepoCallback<List<FoodLocation>>() {
                     @Override
                     public void onSuccess(List<FoodLocation> foodLocations) {
+                        receivers.clear();
                         for (FoodLocation foodLocation : foodLocations) {
                             receivers.add(new Donation(foodLocation));
                         }

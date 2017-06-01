@@ -82,6 +82,10 @@ public class Donation {
 
         Donation donation = (Donation) o;
 
+        //If id == 0 then it means that this donation is only a wrapper for foodLocation.
+        if(id == 0){
+            return this.donator.equals(donation.getDonator());
+        }
         return id == donation.id;
 
     }
