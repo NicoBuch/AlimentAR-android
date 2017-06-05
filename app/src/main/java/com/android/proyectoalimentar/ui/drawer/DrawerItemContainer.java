@@ -1,5 +1,6 @@
 package com.android.proyectoalimentar.ui.drawer;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -15,7 +16,7 @@ public class DrawerItemContainer {
         View drawerItemView = drawerActivity.findViewById(drawerItem.getLayoutRes());
         this.fragment = drawerItem.createFragment();
 
-        drawerItemView.setOnClickListener(v -> drawerActivity.openDrawerItem(drawerItem));
+        drawerItemView.setOnClickListener(v -> drawerActivity.openDrawerItem(drawerItem, new Bundle()));
     }
 
     public Fragment getFragment() {

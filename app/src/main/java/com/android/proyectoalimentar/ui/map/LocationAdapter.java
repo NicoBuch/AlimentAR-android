@@ -17,13 +17,19 @@ public class LocationAdapter extends PagerAdapter {
     private List<Donation> foodLocations;
     private List<FoodLocationView> foodLocationViews;
     private FoodLocationView.OnFoodLocationClickListener onFoodLocationClickListener;
+    private FoodLocationView.OnFoodLocationClickListener onTargetLocationClickListener;
     private Context context;
     private boolean donationButtonAvailable;
+    private boolean targetButtonAvailable;
+
+    private int targetDonationId;
 
     public LocationAdapter(Context context,
-                           FoodLocationView.OnFoodLocationClickListener onFoodLocationClickListener) {
+                           FoodLocationView.OnFoodLocationClickListener onFoodLocationClickListener,
+                           FoodLocationView.OnFoodLocationClickListener onTargetLocationClickListener) {
         this.context = context;
         this.onFoodLocationClickListener = onFoodLocationClickListener;
+        this.onTargetLocationClickListener = onTargetLocationClickListener;
         foodLocations = new ArrayList<>();
         foodLocationViews = new ArrayList<>();
     }
@@ -45,6 +51,7 @@ public class LocationAdapter extends PagerAdapter {
             if (foodLocationView != null) {
                 foodLocationView.setDonation(foodLocations.get(i));
                 foodLocationView.setDonationButtonVisible(donationButtonAvailable);
+                foodLocationView.setTargetDonationButtonVisible(targetButtonAvailable);
                 foodLocationView.setVisibility(View.VISIBLE);
             }
         }
@@ -55,8 +62,9 @@ public class LocationAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup collection, int position) {
         Donation foodLocation = foodLocations.get(position);
         FoodLocationView foodLocationView =
-                new FoodLocationView(context, foodLocation, onFoodLocationClickListener);
+                new FoodLocationView(context, foodLocation, onFoodLocationClickListener, onTargetLocationClickListener);
         foodLocationView.setDonationButtonVisible(donationButtonAvailable);
+        foodLocationView.setTargetDonationButtonVisible(targetButtonAvailable);
         collection.addView(foodLocationView);
         foodLocationViews.set(position, foodLocationView);
         return foodLocationView;
@@ -118,5 +126,18 @@ public class LocationAdapter extends PagerAdapter {
                 foodLocationView.setDonationButtonVisible(donationButtonAvailable);
             }
         }
+    }
+
+    public void setTargetDonationButtonAvailable(boolean targetDonationButtonAvailable){
+        this.targetButtonAvailable = targetDonationButtonAvailable;
+        for (FoodLocationView foodLocationView : foodLocationViews) {
+            if (foodLocationView != null) {
+                foodLocationView.setDonationButtonVisible(targetButtonAvailable);
+            }
+        }
+    }
+
+    public void setTargetDonationId(int targetDonationId) {
+        this.targetDonationId = targetDonationId;
     }
 }

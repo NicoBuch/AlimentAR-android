@@ -2,6 +2,7 @@ package com.android.proyectoalimentar.repository;
 
 import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
+import com.android.proyectoalimentar.model.FridgeId;
 import com.android.proyectoalimentar.network.DonationsService;
 import com.android.proyectoalimentar.network.RetrofitServices;
 
@@ -64,6 +65,21 @@ public class FoodLocationsRepository {
                         repoCallback.onError(error);
                     }
                 }, foodLocations));
+    }
+
+    public void assignFridge(int donationId, int fridgeId, RepoCallback<Boolean> repoCallback){
+        donationsService.assignFridge(donationId,new FridgeId(fridgeId))
+        .enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                repoCallback.onSuccess(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                repoCallback.onSuccess(false);
+            }
+        });
     }
 
     private <T> Callback<List<T>> createSimpleCallback(

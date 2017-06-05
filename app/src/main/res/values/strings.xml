@@ -15,6 +15,9 @@
     <string name="name">Nombre</string>
     <string name="address">Dirección</string>
 
+    <!--Errors-->
+    <string name="connection_error">Problema de conexión</string>
+
 
     <!-- Info window -->
     <string name="see_details">Detalle</string>
@@ -26,17 +29,23 @@
     <string name="givers">Donantes</string>
     <string name="recipients">Comedores</string>
     <string name="find_donation">Buscar donación</string>
+    <string name="select_fridge">Seleccionar destino</string>
     <string name="search">Buscar</string>
 
     <string name="facebook_error">Error al iniciar sesión con Facebook</string>
     <string name="deactivate_error">Error al cancelar una donación</string>
     <string name="cancel">Cancelar</string>
+    <string name="destination">Destino:</string>
+    <string name="hint_destination">Elija un comedor</string>
     <string name="confirm_donation_time">60 min</string>
     <string name="confirm_donation_explanation">Tenes 60 minutos para pasar a buscar la donacipn</string>
     <string name="confirm_donation_cancel">Cancelar</string>
     <string name="confirm_donation_accept">aceptar</string>
     <string name="accept_terms_and_conditions">Acepto los <u>Términos y condiciones</u></string>
     <string name="facebook_login">Iniciar sesión con Facebook</string>
+
+    <!--Fridge selector-->
+    <string name="selector_title">Seleccione un comedor</string>
 
     <!--Notification-->
     <string name="notification_donation_nearby">Donación cercana</string>

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.proyectoalimentar.AlimentarApp;
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.di.component.DaggerAppComponent;
 import com.android.proyectoalimentar.di.module.AppModule;
@@ -45,11 +46,7 @@ public class DonationsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.donations_fragment, container, false);
         ButterKnife.bind(this, view);
-        DaggerAppComponent.builder()
-                .appModule(new AppModule(getActivity()))
-                .networkModule(new NetworkModule())
-                .build()
-                .inject(this);
+        AlimentarApp.inject(this);
 
         setupDrawer();
         setupDonationsList();

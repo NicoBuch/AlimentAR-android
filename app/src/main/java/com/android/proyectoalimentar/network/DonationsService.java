@@ -2,6 +2,7 @@ package com.android.proyectoalimentar.network;
 
 import com.android.proyectoalimentar.model.Donation;
 import com.android.proyectoalimentar.model.FoodLocation;
+import com.android.proyectoalimentar.model.FridgeId;
 import com.android.proyectoalimentar.model.Qualification;
 
 import java.util.List;
@@ -34,4 +35,7 @@ public interface DonationsService {
 
     @POST("donations/{id}/qualify")
     Call<Void> qualify(@Path("id") Integer id, @Body Qualification qualification);
+
+    @POST("donations/{id}/assign_fridge")
+    Call<Void> assignFridge(@Path("id") Integer id, @Body FridgeId fridgeId);
 }

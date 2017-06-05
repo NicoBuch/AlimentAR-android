@@ -17,6 +17,9 @@ public class Configuration {
 
     public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
 
+    //Select fridge
+    public static final String DONATION_ID="DONATION_ID";
+
 
     //Qualify
     public static final int MAX_QUALIFICATION = 5;

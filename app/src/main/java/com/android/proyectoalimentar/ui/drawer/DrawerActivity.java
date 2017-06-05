@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -83,7 +84,7 @@ public class DrawerActivity extends AppCompatActivity{
         Stream.of(DrawerItem.values())
                 .forEach(item ->
                         drawerItems.put(item, new DrawerItemContainer(DrawerActivity.this, item)));
-        openDrawerItem(DEFAULT_ITEM);
+        openDrawerItem(DEFAULT_ITEM, savedInstanceState);
     }
 
     @Override
@@ -97,12 +98,17 @@ public class DrawerActivity extends AppCompatActivity{
 
 
 
-    public void openDrawerItem(DrawerItem drawerItem) {
+    public void openDrawerItem(DrawerItem drawerItem, Bundle bundle) {
         selectedItem = drawerItem;
         hideDrawer();
+        Fragment fragmentToOpen = drawerItems.get(drawerItem).getFragment();
+        if(fragmentToOpen.isAdded()){
+            return;
+        }
+        fragmentToOpen.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, drawerItems.get(drawerItem).getFragment())
+                .replace(R.id.fragment_container, fragmentToOpen)
                 .commit();
     }
 
@@ -131,7 +137,7 @@ public class DrawerActivity extends AppCompatActivity{
         if (selectedItem == DrawerItem.MAP) {
             super.onBackPressed();
         } else {
-            openDrawerItem(DrawerItem.MAP);
+            openDrawerItem(DrawerItem.MAP, new Bundle());
         }
     }
 

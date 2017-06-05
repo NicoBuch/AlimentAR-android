@@ -12,6 +12,8 @@ public class FoodLocation {
     private String address;
     private Avatar avatar;
 
+    private transient int donationId;
+
     public FoodLocation(String name, String description, String address) {
         this.name = name;
         this.description = description;

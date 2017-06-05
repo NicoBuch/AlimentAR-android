@@ -41,8 +41,10 @@ public class FoodLocationView extends FrameLayout {
     @BindView(R.id.description_layout) View descriptionLayout;
     @BindView(R.id.find_donation) View findDonation;
     @BindView(R.id.time_container) View timeContainer;
+    @BindView(R.id.select_fridge) TextView selectFridge;
 
     private OnFoodLocationClickListener onFoodLocationClickListener;
+    private OnFoodLocationClickListener onTargetLocationClickListener;
 
     public interface OnFoodLocationClickListener {
 
@@ -50,11 +52,13 @@ public class FoodLocationView extends FrameLayout {
     }
 
     public FoodLocationView(Context context, Donation foodLocation,
-                            OnFoodLocationClickListener onFoodLocationClickListener) {
+                            OnFoodLocationClickListener onFoodLocationClickListener,
+                            OnFoodLocationClickListener onTargetLocationClickListener) {
         super(context);
         init();
         setDonation(foodLocation);
         this.onFoodLocationClickListener = onFoodLocationClickListener;
+        this.onTargetLocationClickListener = onTargetLocationClickListener;
     }
 
     public FoodLocationView(Context context) {
@@ -136,6 +140,13 @@ public class FoodLocationView extends FrameLayout {
         }
     }
 
+    @OnClick(R.id.select_fridge)
+    void onSelectFridgeClicked(){
+        if (onTargetLocationClickListener != null) {
+            onTargetLocationClickListener.onFoodLocationClicked(foodLocation);
+        }
+    }
+
     public void hideDonationButton() {
         findDonation.setVisibility(GONE);
     }
@@ -143,6 +154,10 @@ public class FoodLocationView extends FrameLayout {
     public void setDonationButtonVisible(boolean donationButtonAvailable) {
         findDonation.setVisibility(donationButtonAvailable ? VISIBLE : GONE);
         timeContainer.setVisibility(donationButtonAvailable ? VISIBLE : GONE);
+    }
+
+    public void setTargetDonationButtonVisible(boolean donationButtonAvailable) {
+        selectFridge.setVisibility(donationButtonAvailable ? VISIBLE : GONE);
     }
 
 }

@@ -44,6 +44,14 @@ public class AlimentarApp extends Application {
                 .inject(target);
     }
 
+    public static void inject(DonationsFragment target) {
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(target.getActivity()))
+                .networkModule(new NetworkModule())
+                .build()
+                .inject(target);
+    }
+
     public static void inject(LoginActivity target) {
         DaggerAppComponent.builder()
                 .appModule(new AppModule(target))

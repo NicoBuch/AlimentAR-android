@@ -75,6 +75,53 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/light_gray"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/selector_map_layout"
+                    android:gravity="center_vertical"
+                    >
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/marker_selected"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/destination_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAllCaps="true"
+                            android:padding="@dimen/description_padding"
+                            android:hint="@string/hint_destination"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            fontPath="fonts/Roboto-Bold.ttf"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <ProgressBar
