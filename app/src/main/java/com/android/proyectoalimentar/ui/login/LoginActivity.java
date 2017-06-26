@@ -93,6 +93,8 @@ public class LoginActivity extends Activity {
                 loginWithToken(AccessToken.getCurrentAccessToken().getToken());
             } else {
                 LoginManager.getInstance().logInWithReadPermissions(this, FB_PERMISSIONS);
+                LoginManager.getInstance().logOut();
+
             }
         }
     }

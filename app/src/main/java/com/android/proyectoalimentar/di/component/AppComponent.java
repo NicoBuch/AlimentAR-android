@@ -8,6 +8,7 @@ import com.android.proyectoalimentar.ui.confirm_donation.ConfirmDonationView;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
+import com.android.proyectoalimentar.ui.login.SignOutFragment;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.android.proyectoalimentar.ui.view.QualifyVolunteerView;
 
@@ -34,6 +35,8 @@ public interface AppComponent {
     void inject(LocationUpdatesService service);
 
     void inject(QualifyVolunteerView qualifyVolunteerView);
+
+    void inject(SignOutFragment activity);
 
 }
 

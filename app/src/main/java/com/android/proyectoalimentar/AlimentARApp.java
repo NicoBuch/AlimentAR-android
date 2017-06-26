@@ -11,6 +11,7 @@ import com.android.proyectoalimentar.services.RegistrationIntentService;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
 import com.android.proyectoalimentar.ui.drawer.DrawerActivity;
 import com.android.proyectoalimentar.ui.login.LoginActivity;
+import com.android.proyectoalimentar.ui.login.SignOutFragment;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -45,6 +46,14 @@ public class AlimentarApp extends Application {
     }
 
     public static void inject(DonationsFragment target) {
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(target.getActivity()))
+                .networkModule(new NetworkModule())
+                .build()
+                .inject(target);
+    }
+
+    public static void inject(SignOutFragment target) {
         DaggerAppComponent.builder()
                 .appModule(new AppModule(target.getActivity()))
                 .networkModule(new NetworkModule())

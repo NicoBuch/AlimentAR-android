@@ -33,6 +33,8 @@
     <string name="search">Buscar</string>
 
     <string name="facebook_error">Error al iniciar sesión con Facebook</string>
+    <string name="signout_error">Error al cerrar sesión</string>
+
     <string name="deactivate_error">Error al cancelar una donación</string>
     <string name="cancel">Cancelar</string>
     <string name="destination">Destino:</string>

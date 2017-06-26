@@ -195,27 +195,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void populateFoodGivers(boolean useCache) {
         if (clearMap()) {
+            locationAdapter.setDonationButtonAvailable(true);
+            locationAdapter.setTargetDonationButtonAvailable(false);
             LatLng targetPosition = map.getCameraPosition().target;
             foodLocationsRepository.getFoodGivers(
                     targetPosition.latitude,
                     targetPosition.longitude,
                     MapCalculator.getVisibleRadius(map), useCache,
                     createFoodRepoCallback());
-            locationAdapter.setDonationButtonAvailable(true);
-            locationAdapter.setTargetDonationButtonAvailable(false);
         }
     }
 
     private void populateFoodReceivers(boolean useCache) {
         if (clearMap()) {
             LatLng targetPosition = map.getCameraPosition().target;
+            locationAdapter.setDonationButtonAvailable(false);
+            locationAdapter.setTargetDonationButtonAvailable(donationId != 0 ? true : false);
             foodLocationsRepository.getFoodReceivers(
                     targetPosition.latitude,
                     targetPosition.longitude,
                     MapCalculator.getVisibleRadius(map), useCache,
                     createFoodRepoCallback());
-            locationAdapter.setDonationButtonAvailable(false);
-            locationAdapter.setTargetDonationButtonAvailable(true);
         }
     }
 
@@ -405,6 +405,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void configureIfSelectionModeIsEnable(){
         //If no donationId information was provided
         if(getArguments() == null || getArguments().getInt(Configuration.DONATION_ID) == 0){
+            donationId = 0;
             configureDefaultBehaviour();
             return;
         }

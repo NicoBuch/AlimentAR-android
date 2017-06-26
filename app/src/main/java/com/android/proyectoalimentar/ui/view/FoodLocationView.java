@@ -99,6 +99,8 @@ public class FoodLocationView extends FrameLayout {
             description.setText(donation.getDescription());
         }
         setFoodLocation(donation.getDonator());
+        forceLayout();
+        requestLayout();
     }
 
     public void setFoodLocation(FoodLocation foodLocation) {
@@ -110,6 +112,8 @@ public class FoodLocationView extends FrameLayout {
         }else{
             profileImage.setImageURI(IMAGE_PLACEHOLDER_URI);
         }
+        forceLayout();
+        requestLayout();
     }
 
     private String stringFromDate(DateTime dateTime) {
