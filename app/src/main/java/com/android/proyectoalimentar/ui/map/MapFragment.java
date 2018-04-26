@@ -365,12 +365,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 return true;
 
             } else {
-
-                map.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(lastLocation.getLatitude()
-                        , lastLocation.getLongitude())));
-                //If context have fine location permission, then should continue with the
-                // map location move.
-                return false;
+                if(lastLocation != null){
+                    map.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(lastLocation.getLatitude()
+                            , lastLocation.getLongitude())));
+                    //If context have fine location permission, then should continue with the
+                    // map location move.
+                    return false;
+                }
+                return true;
             }
         });
     }

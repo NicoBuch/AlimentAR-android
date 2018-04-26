@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.proyectoalimentar.AlimentarApp;
@@ -71,6 +72,9 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
         @BindView(R.id.food_location) FoodLocationView foodLocationView;
         @BindView(R.id.timer) TimerView timer;
         @BindView(R.id.progressBar) ProgressBar progressBar;
+        @BindView(R.id.destination_text)
+        TextView destinationText;
+
 
         private Context context;
         private Donation donation;
@@ -88,6 +92,9 @@ public class DonationsAdapter extends RecyclerView.Adapter<DonationsAdapter.Dona
             foodLocationView.setDonation(donation);
 
             timer.setTimeLeft(donation.getTimeLeft());
+            if(donation.getFridge() != null && donation.getFridge().getAddress() != null){
+                destinationText.setText(donation.getFridge().getAddress());
+            }
         }
 
         @OnClick(R.id.selector_map_layout)

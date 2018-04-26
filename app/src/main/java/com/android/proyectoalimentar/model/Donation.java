@@ -14,6 +14,7 @@ public class Donation {
     DateTime pickupTimeTo;
     DateTime activatedAt;
     FoodLocation donator;
+    Fridge fridge;
 
     public Donation(FoodLocation donator) {
         this.donator = donator;
@@ -40,6 +41,10 @@ public class Donation {
 
     public String getDescription() {
         return description;
+    }
+
+    public Fridge getFridge() {
+        return fridge;
     }
 
     public long getTimeLeft() {

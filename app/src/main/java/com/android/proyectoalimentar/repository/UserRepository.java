@@ -2,6 +2,7 @@ package com.android.proyectoalimentar.repository;
 
 import com.android.proyectoalimentar.model.User;
 import com.android.proyectoalimentar.network.LoginService;
+import com.android.proyectoalimentar.utils.UserStorage;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,8 @@ public class UserRepository {
 
     @Inject
     LoginService loginService;
+    @Inject
+    UserStorage userStorage;
 
     @Inject UserRepository(){
 
@@ -38,5 +41,15 @@ public class UserRepository {
                 repoCallback.onError(t.getMessage());
             }
         });
+    }
+
+    public <T> void signOut(RepoCallback<T> repoCallback) {
+        try{
+            userStorage.logOut();
+            repoCallback.onSuccess(null);
+        }catch (Error e) {
+            repoCallback.onError(e.getLocalizedMessage());
+        }
+
     }
 }

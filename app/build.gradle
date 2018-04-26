@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion '26.0.2'
+    flavorDimensions "versionCode"
 
     defaultConfig {
         applicationId "com.android.proyectoalimentar"
@@ -12,6 +12,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,38 +59,42 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:cardview-v7:24.2.0'
-    compile 'com.google.android.gms:play-services-maps:9.6.1'
-    compile 'com.google.android.gms:play-services-gcm:9.6.1'
-    compile 'com.google.android.gms:play-services-location:9.6.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:24.1.1'
+    implementation 'com.android.support:design:24.1.1'
+    implementation 'com.android.support:cardview-v7:24.1.1'
+    implementation 'com.google.android.gms:play-services-maps:9.6.1'
+    implementation 'com.google.android.gms:play-services-gcm:9.6.1'
+    implementation 'com.google.android.gms:play-services-location:9.6.1'
 
     //GCM
     // Dagger 2
-    compile 'com.google.dagger:dagger:2.5'
-    apt 'com.google.dagger:dagger-compiler:2.5'
-    provided 'javax.annotation:jsr250-api:1.0'
+    implementation 'com.google.dagger:dagger:2.5'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+    androidTestImplementation 'javax.annotation:jsr250-api:1.0'
     // Butterknife
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // Functional streams
-    compile 'com.annimon:stream:1.1.1'
+    implementation 'com.annimon:stream:1.1.1'
     // For custom fonts
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
     // Facebook login
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation ('com.facebook.android:facebook-android-sdk:4.1.0') {
+        exclude group: 'com.parse.bolts', module: 'bolts-android';
+        exclude group: 'com.parse.bolts', module: 'bolts-applinks';
+        exclude group: 'com.parse.bolts', module: 'bolts-tasks';
+    }
     // For time and date management
-    compile 'net.danlew:android.joda:2.8.1'
+    implementation 'net.danlew:android.joda:2.8.1'
     // For images
-    compile 'com.facebook.fresco:fresco:1.1.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.facebook.fresco:fresco:1.1.0'
+    androidTestImplementation 'junit:junit:4.12'
 }
 
 apply plugin: 'com.google.gms.google-services'

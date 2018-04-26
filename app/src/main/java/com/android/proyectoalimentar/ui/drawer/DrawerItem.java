@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.android.proyectoalimentar.R;
 import com.android.proyectoalimentar.ui.donations.DonationsFragment;
+import com.android.proyectoalimentar.ui.login.SignOutFragment;
 import com.android.proyectoalimentar.ui.map.MapFragment;
 import com.android.proyectoalimentar.ui.terms_and_conditions.TermsAndConditionsFragment;
 
@@ -11,7 +12,8 @@ public enum DrawerItem {
 
     MAP(R.id.nav_item_map, MapFragment::new),
     DONATIONS(R.id.nav_item_donations, DonationsFragment::new),
-    TERMS(R.id.nav_item_terms, TermsAndConditionsFragment::new);
+    TERMS(R.id.nav_item_terms, TermsAndConditionsFragment::new),
+    LOGOUT(R.id.sign_out, SignOutFragment::new);
 
     private final int layoutRes;
     private final FragmentFactory fragmentFactory;

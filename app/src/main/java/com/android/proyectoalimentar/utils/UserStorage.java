@@ -36,4 +36,11 @@ public class UserStorage {
         return getLoggedUser() != null;
     }
 
+    public void logOut() {
+        StorageUtils.clearKey(
+                Configuration.ACCESS_TOKEN);
+        StorageUtils.clearKey(LOGGED_USER);
+
+    }
+
 }

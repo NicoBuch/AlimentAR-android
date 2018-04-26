@@ -40,7 +40,7 @@
     <string name="destination">Destino:</string>
     <string name="hint_destination">Elija un comedor</string>
     <string name="confirm_donation_time">60 min</string>
-    <string name="confirm_donation_explanation">Tenes 60 minutos para pasar a buscar la donacipn</string>
+    <string name="confirm_donation_explanation">Tenes 60 minutos para pasar a buscar la donación</string>
     <string name="confirm_donation_cancel">Cancelar</string>
     <string name="confirm_donation_accept">aceptar</string>
     <string name="accept_terms_and_conditions">Acepto los <u>Términos y condiciones</u></string>
